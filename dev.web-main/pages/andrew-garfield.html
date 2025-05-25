@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Filme - Andrew Garfield</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: #0A1F44;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    .produto {
+      padding: 50px 0;
+    }
+    .produto img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .btn-danger {
+      background-color: #FF3131;
+      border: none;
+    }
+    .btn-danger:hover {
+      background-color: #D00000;
+    }
+  </style>
+</head>
+<body>
+  <a href="../index.html" style="position: absolute; top: 20px; left: 20px; color: white; text-decoration: none; font-size: 1.2rem;">
+    ⬅ Voltar
+  </a>
+
+  <div class="container produto">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center">
+        <img src="../img/PRODUTOS/produto5.png" alt="Poster do filme Homem-Aranha Andrew Garfield" />
+      </div>
+      <div class="col-md-6">
+        <h1 style="font-family: 'Bangers', cursive; font-size: 3rem;">Homem-Aranha: Andrew Garfield 🕷️</h1>
+        <p class="mb-4">Reviva as aventuras incríveis do espetacular Homem-Aranha interpretado por Andrew Garfield. Um clássico moderno para os fãs da Marvel!</p>
+        <h4 class="text-success mb-3">R$ 119,99 <small><del style="color: #aaa;">R$ 249,99</del></small></h4>
+
+        <form>
+          <div class="mb-3">
+            <label for="formato" class="form-label">Formato:</label>
+            <select class="form-select text-dark" id="formato">
+              <option>Blu-ray</option>
+              <option>DVD</option>
+              <option>Digital HD</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="quantidade" class="form-label">Quantidade:</label>
+            <input type="number" class="form-control text-dark" id="quantidade" value="1" min="1" />
+          </div>
+          <button class="btn btn-danger w-100">🛒 Adicionar ao Carrinho</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

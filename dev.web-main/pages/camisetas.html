@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Camiseta Aranha</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+
+  <!-- Fonte personalizada -->
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* Estilo geral do corpo da página */
+    body {
+      background-color: #0A1F44;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Estilização do container do produto */
+    .produto {
+      padding: 50px 0;
+    }
+
+    /* Estilo da imagem do produto */
+    .produto img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    /* Botão personalizado (vermelho com hover) */
+    .btn-danger {
+      background-color: #FF3131;
+      border: none;
+    }
+    .btn-danger:hover {
+      background-color: #D00000;
+    }
+
+    /* Título principal usando fonte Bangers */
+    h1.produto-titulo {
+      font-family: 'Bangers', cursive;
+      font-size: 3rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Link para voltar à página inicial -->
+  <a href="../index.html" style="position: absolute; top: 20px; left: 20px; color: white; text-decoration: none; font-size: 1.2rem;">
+    ⬅ Voltar
+  </a>
+
+  <!-- Container principal do produto -->
+  <div class="container produto">
+    <div class="row align-items-center">
+      
+      <!-- Imagem do produto -->
+      <div class="col-md-6 text-center">
+        <img src="../img/PRODUTOS/produto3.png" alt="Camiseta Aranha" />
+      </div>
+
+      <!-- Detalhes do produto -->
+      <div class="col-md-6">
+        <p class="mb-4">
+          Mostre seu amor pelo teioso com esta camiseta exclusiva, feita 100% em algodão.
+        </p>
+        <h4 class="text-success mb-3">R$ 29,90</h4>
+
+        <!-- Formulário para seleção de tamanho e quantidade -->
+        <form>
+          <div class="mb-3">
+            <label for="tamanho" class="form-label">Tamanho:</label>
+            <select class="form-select text-dark" id="tamanho">
+              <option>P</option>
+              <option>M</option>
+              <option>G</option>
+              <option>GG</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="quantidade" class="form-label">Quantidade:</label>
+            <input type="number" class="form-control text-dark" id="quantidade" value="1" min="1" />
+          </div>
+
+          <button type="submit" class="btn btn-danger w-100">
+            🛒 Adicionar ao Carrinho
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Script do Bootstrap para funcionalidades -->
+  <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

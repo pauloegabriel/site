@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Produtos - Homem-Aranha</title>
+
+  <link rel="shortcut icon" type="image/png" href="../img/aranha.png" />
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+
+  <style>
+    html, body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    body {
+      background-color: #0A1F44;
+      color: #FFF;
+    }
+    main {
+      flex: 1;
+    }
+    .navbar {
+      background-color: #D00000;
+    }
+    .navbar-brand {
+      color: #fff !important;
+      font-weight: bold;
+      font-family: 'Bangers', cursive;
+      font-size: 1.5rem;
+    }
+    .btn-outline-light {
+      border-color: #fff;
+      color: #fff;
+    }
+    .btn-outline-light:hover {
+      background-color: #fff;
+      color: #D00000;
+    }
+    .dropdown-menu {
+      background-color: #D00000;
+    }
+    .dropdown-item {
+      color: #fff;
+    }
+    .dropdown-item:hover {
+      background-color: #fff;
+      color: #D00000;
+    }
+    .spiderman-section {
+      text-align: center;
+      padding: 50px;
+    }
+    .spiderman-section img {
+      width: 300px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #D00000;
+    }
+
+    /* Navbar-toggler icon color adjustment */
+    .navbar-dark .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    
+    /* Acessibilidade: esconder label visualmente para campo busca */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px; 
+      padding: 0; margin: -1px; 
+      overflow: hidden; 
+      clip: rect(0, 0, 0, 0); 
+      border: 0;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark p-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../img/aranha.png" alt="Logo Homem-Aranha" width="30" height="24" class="d-inline-block align-text-top me-2" />
+          Produtos
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Alternar menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item p-1">
+              <a class="btn btn-outline-light" href="#">EM BREVE FILMES</a>
+            </li>
+            <li class="nav-item dropdown p-1">
+              <a class="nav-link dropdown-toggle btn btn-outline-light" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Mais
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="contatos.html">Contatos</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="produtos.html">Produtos</a></li>
+                <li><a class="dropdown-item" href="#">Em breve</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <form class="d-flex" role="search" onsubmit="event.preventDefault(); /* implementar busca */">
+            <label for="searchInput" class="visually-hidden">Pesquisar produtos</label>
+            <input id="searchInput" class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar" />
+            <button class="btn btn-outline-light" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="spiderman-section">
+      <div class="container">
+        <h2 class="text-center mb-5" style="font-family: 'Bangers', cursive; font-size: 3rem; color: #FF3131;">
+          Confira os Produtos do Universo Homem-Aranha!🕷️
+        </h2>
+
+        <div class="row justify-content-center g-4">
+          <!-- Produto 1 - Camiseta -->
+          <div class="col-md-4">
+            <div class="card border-3 shadow-lg p-2" style="border-color: #D00000;">
+              <img src="../img/PRODUTOS/produto3.png" class="card-img-top" alt="Camiseta Aranha" />
+              <div class="card-body text-center">
+                <h5 class="card-title" style="font-family: 'Bangers', cursive; font-size: 1.7rem; color: #D00000;">Camiseta Aranha</h5>
+                <p class="card-text">Camiseta 100% algodão com estampa exclusiva do Aracnídeo.</p>
+                <form onsubmit="event.preventDefault(); /* adicionar ao carrinho */">
+                  <div class="mb-2">
+                    <label for="tamanho1" class="form-label">Tamanho:</label>
+                    <select class="form-select text-dark" id="tamanho1">
+                      <option>P</option><option>M</option><option>G</option><option>GG</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="quantidade1" class="form-label">Quantidade:</label>
+                    <input type="number" class="form-control text-dark" id="quantidade1" value="1" min="1" />
+                  </div>
+                  <button type="submit" class="btn btn-danger w-100" style="background-color: #FF3131; border: none; font-weight: bold;">
+                    🛒 Adicionar ao Carrinho
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Produto 2 - HQ -->
+          <div class="col-md-4">
+            <div class="card border-3 shadow-lg p-2" style="border-color: #D00000;">
+              <img src="../img/PRODUTOS/produto1.png" class="card-img-top" alt="HQ Aranha" />
+              <div class="card-body text-center">
+                <h5 class="card-title" style="font-family: 'Bangers', cursive; font-size: 1.7rem; color: #D00000;">HQ Vol. 117</h5>
+                <p class="card-text">A edição mais icônica: “Partindo pro Ataque”. Colecionável!</p>
+                <form onsubmit="event.preventDefault(); /* adicionar ao carrinho */">
+                  <div class="mb-2">
+                    <label for="tamanho2" class="form-label">Formato:</label>
+                    <select class="form-select text-dark" id="tamanho2">
+                      <option>Padrão</option><option>Luxo</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="quantidade2" class="form-label">Quantidade:</label>
+                    <input type="number" class="form-control text-dark" id="quantidade2" value="1" min="1" />
+                  </div>
+                  <button type="submit" class="btn btn-danger w-100" style="background-color: #FF3131; border: none; font-weight: bold;">
+                    🛒 Adicionar ao Carrinho
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Produto 3 - Squeeze -->
+          <div class="col-md-4">
+            <div class="card border-3 shadow-lg p-2" style="border-color: #D00000;">
+              <img src="../img/PRODUTOS/produto2.png" class="card-img-top" alt="Squeeze Aranha" />
+              <div class="card-body text-center">
+                <h5 class="card-title" style="font-family: 'Bangers', cursive; font-size: 1.7rem; color: #D00000;">Squeeze 500ml</h5>
+                <p class="card-text">Garrafa resistente e estilosa para levar o Aranha com você!</p>
+                <form onsubmit="event.preventDefault(); /* adicionar ao carrinho */">
+                  <div class="mb-2">
+                    <label for="tamanho3" class="form-label">Cor:</label>
+                    <select class="form-select text-dark" id="tamanho3">
+                      <option>Vermelho</option><option>Preto</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="quantidade3" class="form-label">Quantidade:</label>
+                    <input type="number" class="form-control text-dark" id="quantidade3" value="1" min="1" />
+                  </div>
+                  <button type="submit" class="btn btn-danger w-100" style="background-color: #FF3131; border: none; font-weight: bold;">
+                    🛒 Adicionar ao Carrinho
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div> <!-- fim row -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center p-3" style="background-color: #0A1F44; color: white; border-top: 4px solid #D00000;">
+    &copy; 2025 - Universo Homem-Aranha. Todos os direitos
+
+
+  <!-- Script do Bootstrap para funcionalidade da navbar e dropdown -->
+  <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
