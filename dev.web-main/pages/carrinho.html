@@ -1,162 +1,355 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carrinho - Universo Homem-Aranha</title>
+  <title>Carrinho - Homem-Aranha</title>
+
+  <link rel="shortcut icon" type="image/png" href="../img/aranha.png" />
   <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+
   <style>
+    html, body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
     body {
       background-color: #0A1F44;
-      color: white;
-      padding: 2rem;
-      font-family: Arial, sans-serif;
+      color: #FFF;
     }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
+    main {
+      flex: 1;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 2rem;
-      background-color: #142c66;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    th, td {
-      padding: 1rem;
-      text-align: center;
-    }
-
-    th {
+    .navbar {
       background-color: #D00000;
-      color: white;
     }
-
-    td {
-      background-color: #10264d;
-      border-bottom: 1px solid #D00000;
-    }
-
-    button {
-      background-color: #FF3131;
-      border: none;
-      color: white;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
+    .navbar-brand {
+      color: #fff !important;
       font-weight: bold;
-      border-radius: 4px;
-      transition: background-color 0.3s;
+      font-family: 'Bangers', cursive;
+      font-size: 1.5rem;
     }
-
-    button:hover {
+    .btn-outline-light {
+      border-color: #fff;
+      color: #fff;
+    }
+    .btn-outline-light:hover {
+      background-color: #fff;
+      color: #D00000;
+    }
+    .dropdown-menu {
       background-color: #D00000;
     }
-
-    .center {
-      text-align: center;
+    .dropdown-item {
+      color: #fff;
     }
-
-    @media (max-width: 768px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-
-      th, td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-      }
-
-      th::before, td::before {
-        position: absolute;
-        left: 1rem;
-        top: 1rem;
-        white-space: nowrap;
-        font-weight: bold;
-      }
-
-      th:nth-child(1)::before { content: "Produto"; }
-      th:nth-child(2)::before { content: "Variação"; }
-      th:nth-child(3)::before { content: "Quantidade"; }
-      th:nth-child(4)::before { content: "Remover"; }
-
-      td:nth-child(1)::before { content: "Produto"; }
-      td:nth-child(2)::before { content: "Variação"; }
-      td:nth-child(3)::before { content: "Quantidade"; }
-      td:nth-child(4)::before { content: "Remover"; }
+    .dropdown-item:hover {
+      background-color: #fff;
+      color: #D00000;
+    }
+    .spiderman-section {
+      text-align: center;
+      padding: 50px;
+    }
+    .cart-item {
+      background-color: #0A1F44;
+      border: 2px solid #D00000;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .cart-item img {
+      width: 100px;
+      height: auto;
+      border-radius: 5px;
+    }
+    .cart-summary {
+      background-color: #0A1F44;
+      border: 2px solid #D00000;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .btn-checkout {
+      background-color: #FF3131;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      margin-top: 20px;
+    }
+    .btn-checkout:hover {
+      background-color: #D00000;
+      color: white;
+    }
+    .btn-remove {
+      background-color: transparent;
+      color: #FF3131;
+      border: 1px solid #FF3131;
+    }
+    .btn-remove:hover {
+      background-color: #FF3131;
+      color: white;
+    }
+    .alert-info {
+      background-color: #0A1F44;
+      border-color: #D00000;
+      color: white;
+    }
+    
+    /* Navbar-toggler icon color adjustment */
+    .navbar-dark .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    
+    /* Acessibilidade */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px; 
+      padding: 0; margin: -1px; 
+      overflow: hidden; 
+      clip: rect(0, 0, 0, 0); 
+      border: 0;
     }
   </style>
 </head>
+
 <body>
+  
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark p-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../img/aranha.png" alt="Logo Homem-Aranha" width="30" height="24" class="d-inline-block align-text-top me-2" />
+          Carrinho
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Alternar menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <h1>🛒 Seu Carrinho de Compras</h1>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item p-1">
+              <a class="btn btn-outline-light" href="#">EM BREVE FILMES</a>
+            </li>
+            <li class="nav-item dropdown p-1">
+              <a class="nav-link dropdown-toggle btn btn-outline-light" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Mais
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="contatos.html">Contatos</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="produtos.html">Produtos</a></li>
+                <li><a class="dropdown-item" href="#">Em breve</a></li>
+              </ul>
+            </li>
+          </ul>
 
-  <table id="tabelaCarrinho">
-    <thead>
-      <tr>
-        <th>Produto</th>
-        <th>Variação</th>
-        <th>Quantidade</th>
-        <th>Remover</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Produtos inseridos pelo JavaScript -->
-    </tbody>
-  </table>
+          <form class="d-flex" role="search" onsubmit="event.preventDefault();">
+            <label for="searchInput" class="visually-hidden">Pesquisar produtos</label>
+            <input id="searchInput" class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar" />
+            <button class="btn btn-outline-light" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-  <div class="center">
-    <button onclick="limparCarrinho()">🧹 Limpar Carrinho</button>
-  </div>
+  <main>
+    <section class="spiderman-section">
+      <div class="container">
+        <h2 class="text-center mb-5" style="font-family: 'Bangers', cursive; font-size: 3rem; color: #FF3131;">
+          Seu Carrinho de Compras 🕷️
+        </h2>
 
+        <div class="row">
+          <div class="col-md-8" id="cart-items-container">
+            <div class="alert alert-info" id="empty-cart-message">
+              Seu carrinho está vazio. Adicione produtos!
+            </div>
+          </div>
+
+          <!-- Resumo do Pedido -->
+          <div class="col-md-4">
+            <div class="cart-summary">
+              <h3 style="font-family: 'Bangers', cursive; color: #FF3131;">Resumo do Pedido</h3>
+              <hr style="border-color: #D00000;">
+              
+              <div class="d-flex justify-content-between">
+                <p>Subtotal (<span id="item-count">0</span> itens):</p>
+                <p>R$ <span id="subtotal">0,00</span></p>
+              </div>
+              
+              <div class="d-flex justify-content-between">
+                <p>Frete:</p>
+                <p>Grátis</p>
+              </div>
+              
+              <hr style="border-color: #D00000;">
+              
+              <div class="d-flex justify-content-between">
+                <h4>Total:</h4>
+                <h4>R$ <span id="total">0,00</span></h4>
+              </div>
+              
+              <button class="btn btn-checkout w-100" id="checkout-btn">
+                Finalizar Compra
+              </button>
+              
+              <div class="text-center mt-3">
+                <a href="produtos.html" class="text-white">Continuar comprando</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center p-3" style="background-color: #0A1F44; color: white; border-top: 4px solid #D00000;">
+    &copy; 2025 - Universo Homem-Aranha. Todos os direitos reservados.
+  </footer>
+
+  <!-- Script do Bootstrap -->
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Script do Carrinho -->
   <script>
-    function carregarCarrinho() {
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const tbody = document.querySelector('#tabelaCarrinho tbody');
-      tbody.innerHTML = '';
+    // Carrinho (armazenado no localStorage do navegador)
+    let cart = JSON.parse(localStorage.getItem('spidermanCart')) || [];
 
-      if (carrinho.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4">🛍️ Seu carrinho está vazio.</td></tr>';
-        return;
-      }
-
-      carrinho.forEach((produto, index) => {
-        const tr = document.createElement('tr');
-
-        tr.innerHTML = `
-          <td>${produto.nome}</td>
-          <td>${produto.variacao || '-'}</td>
-          <td>${produto.quantidade}</td>
-          <td><button onclick="removerProduto(${index})">X</button></td>
-        `;
-
-        tbody.appendChild(tr);
-      });
+    // Função para adicionar produto
+    function addToCart(productId, productName, productPrice, productImage, productDetails) {
+        // Verifica se o produto já está no carrinho
+        const existingItem = cart.find(item => item.id === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                details: productDetails,
+                quantity: 1
+            });
+        }
+        
+        // Salva no localStorage
+        saveCart();
+        
+        // Atualiza a exibição
+        updateCartDisplay();
+        
+        // Feedback visual
+        alert(`${productName} foi adicionado ao carrinho!`);
     }
 
-    function removerProduto(index) {
-      let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      carrinho.splice(index, 1);
-      localStorage.setItem('carrinho', JSON.stringify(carrinho));
-      carregarCarrinho();
+    // Função para remover produto
+    function removeFromCart(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        saveCart();
+        updateCartDisplay();
     }
 
-    function limparCarrinho() {
-      if (confirm('Deseja realmente limpar todo o carrinho?')) {
-        localStorage.removeItem('carrinho');
-        carregarCarrinho();
-      }
+    // Salva o carrinho no localStorage
+    function saveCart() {
+        localStorage.setItem('spidermanCart', JSON.stringify(cart));
     }
 
-    // Carregar carrinho ao iniciar
-    carregarCarrinho();
+    // Limpa todo o carrinho
+    function clearCart() {
+        cart = [];
+        saveCart();
+        updateCartDisplay();
+    }
+
+    // Atualiza a exibição do carrinho
+    function updateCartDisplay() {
+        const container = document.getElementById('cart-items-container');
+        const emptyMessage = document.getElementById('empty-cart-message');
+        const itemCountElement = document.getElementById('item-count');
+        const subtotalElement = document.getElementById('subtotal');
+        const totalElement = document.getElementById('total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        
+        // Limpa o container
+        container.innerHTML = '';
+        
+        // Mostra mensagem se o carrinho estiver vazio
+        if (cart.length === 0) {
+            container.innerHTML = `
+                <div class="alert alert-info">
+                    Seu carrinho está vazio. Adicione produtos!
+                </div>
+            `;
+            itemCountElement.textContent = '0';
+            subtotalElement.textContent = '0,00';
+            totalElement.textContent = '0,00';
+            checkoutBtn.disabled = true;
+            return;
+        }
+        
+        // Calcula totais
+        let itemCount = 0;
+        let subtotal = 0;
+        
+        // Adiciona cada item ao carrinho
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            itemCount += item.quantity;
+            subtotal += itemTotal;
+            
+            container.innerHTML += `
+            <div class="cart-item">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="${item.image}" alt="${item.name}" class="img-fluid">
+                    </div>
+                    <div class="col-md-6">
+                        <h3 style="font-family: 'Bangers', cursive; color: #FF3131;">${item.name}</h3>
+                        <p><strong>${item.details}</strong></p>
+                        <p><strong>Quantidade:</strong> ${item.quantity}</p>
+                        <p><strong>Preço unitário:</strong> R$ ${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <p><strong>Subtotal:</strong> R$ ${itemTotal.toFixed(2)}</p>
+                        <button class="btn btn-remove" onclick="removeFromCart('${item.id}')">Remover</button>
+                    </div>
+                </div>
+            </div>
+            `;
+        });
+        
+        // Atualiza resumo
+        itemCountElement.textContent = itemCount;
+        subtotalElement.textContent = subtotal.toFixed(2);
+        totalElement.textContent = subtotal.toFixed(2);
+        checkoutBtn.disabled = false;
+    }
+
+    // Finalizar compra
+    document.getElementById('checkout-btn').addEventListener('click', function() {
+        if (cart.length > 0) {
+            alert('Compra finalizada com sucesso! Obrigado por sua compra.');
+            clearCart();
+        }
+    });
+
+    // Atualiza o carrinho quando a página carrega
+    document.addEventListener('DOMContentLoaded', updateCartDisplay);
   </script>
-
 </body>
 </html>
-

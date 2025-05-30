@@ -222,5 +222,87 @@
 
   <!-- Script do Bootstrap para funcionalidade da navbar e dropdown -->
   <script src="../js/bootstrap.bundle.min.js"></script>
+  <script>
+  // Função para adicionar produtos ao carrinho
+  function addToCart(productId, productName, productPrice, productImage, productDetails) {
+    // Recupera o carrinho do localStorage ou cria um novo
+    let cart = JSON.parse(localStorage.getItem('spidermanCart')) || [];
+    
+    // Verifica se o produto já está no carrinho
+    const existingItem = cart.find(item => item.id === productId && item.details === productDetails);
+    
+    if (existingItem) {
+      // Incrementa a quantidade se o produto já existir
+      existingItem.quantity += 1;
+    } else {
+      // Adiciona novo item ao carrinho
+      cart.push({
+        id: productId,
+        name: productName,
+        price: productPrice,
+        image: productImage,
+        details: productDetails,
+        quantity: 1
+      });
+    }
+    
+    // Salva o carrinho atualizado no localStorage
+    localStorage.setItem('spidermanCart', JSON.stringify(cart));
+    
+    // Feedback visual
+    alert(`${productName} foi adicionado ao carrinho!`);
+    
+    // Redireciona para o carrinho (opcional)
+    // window.location.href = "carrinho.html";
+  }
+
+  // Configura os eventos dos botões "Adicionar ao Carrinho"
+  document.addEventListener('DOMContentLoaded', function() {
+    // Produto 1 - Camiseta
+    document.querySelector('#produto1-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const size = document.getElementById('tamanho1').value;
+      const quantity = document.getElementById('quantidade1').value;
+      addToCart(
+        'produto1',
+        'Camiseta Aranha',
+        79.90,
+        '../img/PRODUTOS/produto3.png',
+        `Tamanho: ${size}`,
+        quantity
+      );
+    });
+
+    // Produto 2 - HQ
+    document.querySelector('#produto2-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const format = document.getElementById('tamanho2').value;
+      const quantity = document.getElementById('quantidade2').value;
+      addToCart(
+        'produto2',
+        'HQ Vol. 117',
+        49.90,
+        '../img/PRODUTOS/produto1.png',
+        `Formato: ${format}`,
+        quantity
+      );
+    });
+
+    // Produto 3 - Squeeze
+    document.querySelector('#produto3-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const color = document.getElementById('tamanho3').value;
+      const quantity = document.getElementById('quantidade3').value;
+      addToCart(
+        'produto3',
+        'Squeeze 500ml',
+        59.90,
+        '../img/PRODUTOS/produto2.png',
+        `Cor: ${color}`,
+        quantity
+      );
+    });
+  });
+</script>
 </body>
 </html>
