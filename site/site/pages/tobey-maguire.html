@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filme - Tobey Maguire</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #0A1F44, #001533);
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-bottom: 40px;
+      margin: 0;
+    }
+
+    .link-topo {
+      position: fixed;
+      top: 20px;
+      padding: 12px 24px;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 0 10px rgba(255, 49, 49, 0.6);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      z-index: 1100;
+      font-size: 1.1rem;
+      user-select: none;
+    }
+
+    .link-voltar {
+      left: 20px;
+      background: #FF3131;
+    }
+
+    .link-voltar:hover {
+      background-color: #b00000;
+      box-shadow: 0 0 15px #b00000;
+    }
+
+    .botao-carrinho {
+      right: 20px;
+      background: #FF3131;
+    }
+
+    .botao-carrinho:hover {
+      background-color: #b00000;
+      box-shadow: 0 0 15px #b00000;
+    }
+
+    .produto {
+      padding: 80px 15px 50px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .produto img {
+      max-width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+      transition: transform 0.3s ease;
+      cursor: zoom-in;
+    }
+
+    .produto img:hover {
+      transform: scale(1.05);
+    }
+
+    h1.produto-titulo {
+      font-family: 'Bangers', cursive;
+      font-size: 3.8rem;
+      color: #FF3131;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 5px #990000cc;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: #ddd;
+      margin-bottom: 25px;
+    }
+
+    .preco-branco {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 30px;
+    }
+
+    form {
+      background-color: #112955cc;
+      padding: 30px 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px #0a1f44cc;
+    }
+
+    label.form-label {
+      font-weight: 600;
+      color: #eee;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    select.form-select,
+    input.form-control {
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      padding: 12px 15px;
+      color: #222;
+      box-shadow: inset 0 0 8px #000000aa;
+      transition: box-shadow 0.3s ease;
+    }
+
+    select.form-select:focus,
+    input.form-control:focus {
+      outline: none;
+      box-shadow: 0 0 10px #FF3131cc;
+      background-color: #fff;
+    }
+
+    .btn-danger {
+      background-color: #FF3131;
+      border: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 14px;
+      border-radius: 10px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px #FF3131cc;
+    }
+
+    .btn-danger:hover {
+      background-color: #b00000;
+      box-shadow: 0 6px 20px #b00000cc;
+    }
+
+    .btn-success {
+      background-color: #4CAF50;
+      border: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 14px;
+      border-radius: 10px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px #00ff08cc;
+    }
+
+    .btn-success:hover {
+      background-color: #388e3c;
+      box-shadow: 0 6px 20px #388e3ccc;
+    }
+
+    button + button {
+      margin-top: 15px;
+    }
+
+    @media (max-width: 767px) {
+      h1.produto-titulo {
+        font-size: 2.8rem;
+      }
+      .preco-branco {
+        font-size: 1.5rem;
+      }
+      form {
+        padding: 20px 15px;
+      }
+    }
+
+    /* Mensagem de alerta para sucesso */
+    #mensagem-sucesso {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 9999;
+      display: none;
+      box-shadow: 0 0 10px #28a745cc;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../index.html" class="link-topo link-voltar">⬅ Voltar</a>
+  <a href="/dev.web-main/pages/carrinho.html" class="link-topo botao-carrinho">🛒 Ver Carrinho</a>
+
+  <div class="container produto">
+    <div class="row align-items-center gy-5">
+      <div class="col-md-6 text-center">
+        <img src="../img/PRODUTOS/produto4.png" alt="Poster do filme Homem-Aranha Tobey Maguire" />
+      </div>
+      <div class="col-md-6">
+        <h1 class="produto-titulo">Homem-Aranha: Tobey Maguire 🕷️</h1>
+        <p>Reviva os momentos clássicos do primeiro Homem-Aranha dos cinemas, vivido por Tobey Maguire. A nostalgia e a ação dos anos 2000 de volta à sua coleção!</p>
+        <p class="preco-branco">R$ 79,99 <small><del style="color: #aaa; font-weight: normal;">R$ 199,99</del></small></p>
+
+        <form id="form-carrinho">
+          <div class="mb-4">
+            <label for="formato" class="form-label">Formato:</label>
+            <select class="form-select text-dark" id="formato" required>
+              <option value="Blu-ray">Blu-ray</option>
+              <option value="DVD">DVD</option>
+              <option value="Digital HD">Digital HD</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="quantidade" class="form-label">Quantidade:</label>
+            <input type="number" class="form-control text-dark" id="quantidade" value="1" min="1" required />
+          </div>
+          <button type="submit" class="btn btn-danger w-100">🛒 Adicionar ao Carrinho</button>
+          <button type="button" class="btn btn-success w-100" onclick="comprarAgora()">💳 Comprar Agora</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="mensagem-sucesso">
+    Produto adicionado ao carrinho!
+  </div>
+
+  <script>
+    function obterProduto() {
+      return {
+        id: 'filme-tobey-maguire',
+        nome: 'Homem-Aranha: Tobey Maguire',
+        preco: 'R$ 79,99',
+        variacao: document.getElementById('formato').value,
+        quantidade: parseInt(document.getElementById('quantidade').value),
+        imagem: '../img/PRODUTOS/produto4.png'
+      };
+    }
+
+    document.getElementById('form-carrinho').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const produto = obterProduto();
+
+      // Recupera carrinho do localStorage ou cria novo
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      carrinho.push(produto);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
+      // Mostra mensagem de sucesso
+      const alerta = document.getElementById('mensagem-sucesso');
+      alerta.style.display = 'block';
+      setTimeout(() => {
+        alerta.style.display = 'none';
+      }, 2000);
+    });
+
+    function comprarAgora() {
+      const produto = obterProduto();
+
+      localStorage.setItem('compra-imediata', JSON.stringify(produto));
+      window.location.href = 'conferir.html';
+    }
+  </script>
+
+  <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
