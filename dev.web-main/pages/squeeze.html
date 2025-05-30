@@ -2,71 +2,396 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Squeeze 500ml - Homem-Aranha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Squeeze Homem-Aranha 500ml - Leve seu herói favorito para todas as aventuras! Design exclusivo e material durável.">
+  <title>Squeeze 500ml - Homem-Aranha | Universo Geek</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/bootstrap.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet"/>
   <style>
+    :root {
+      --primary-bg: #0A1F44;
+      --secondary-bg: #112955;
+      --accent-red: #FF3131;
+      --accent-dark-red: #b00000;
+      --accent-green: #4CAF50;
+      --accent-dark-green: #388e3c;
+    }
+    
     body {
-      background-color: #0A1F44;
+      background: linear-gradient(135deg, var(--primary-bg), #001533);
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding-top: 80px;
+      padding-bottom: 40px;
+    }
+
+    .nav-top {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background-color: var(--primary-bg);
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .nav-link {
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 49, 49, 0.6);
+    }
+
+    .nav-link-voltar {
+      background: var(--accent-red);
       color: white;
-      font-family: Arial, sans-serif;
     }
+
+    .nav-link-voltar:hover {
+      background-color: var(--accent-dark-red);
+      box-shadow: 0 0 15px var(--accent-dark-red);
+      transform: translateX(-3px);
+    }
+
+    .nav-link-carrinho {
+      background: var(--accent-red);
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link-carrinho:hover {
+      background-color: var(--accent-dark-red);
+      box-shadow: 0 0 15px var(--accent-dark-red);
+      transform: translateX(3px);
+    }
+
+    .cart-count {
+      background-color: white;
+      color: var(--accent-red);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
     .produto {
-      padding: 50px 0;
+      padding: 30px 15px 50px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
+
+    h1.produto-titulo {
+      font-family: 'Bangers', cursive;
+      font-size: 3.2rem;
+      color: var(--accent-red);
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 5px #990000cc;
+    }
+
+    .produto p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: #ddd;
+      margin-bottom: 25px;
+    }
+
+    .preco-branco {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 3px #990000cc;
+    }
+
+    .badge-discount {
+      font-size: 1rem;
+      padding: 5px 10px;
+      margin-left: 10px;
+    }
+
     .produto img {
       max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .produto img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+    }
+
+    .product-form {
+      background-color: var(--secondary-bg);
+      padding: 30px 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(10, 31, 68, 0.8);
+    }
+
+    label.form-label {
+      font-weight: 600;
+      color: #eee;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    select.form-select,
+    input.form-control {
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      padding: 12px 15px;
+      color: #222;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.7);
+      transition: all 0.3s ease;
+    }
+
+    select.form-select:focus,
+    input.form-control:focus {
+      outline: none;
+      box-shadow: 0 0 10px var(--accent-red);
+      background-color: #fff;
+    }
+
+    .btn-danger {
+      background-color: var(--accent-red);
+      border: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 14px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 49, 49, 0.8);
+    }
+
+    .btn-danger:hover {
+      background-color: var(--accent-dark-red);
+      box-shadow: 0 6px 20px rgba(176, 0, 0, 0.8);
+      transform: translateY(-2px);
+    }
+
+    .btn-success {
+      background-color: var(--accent-green);
+      border: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 14px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 255, 8, 0.8);
+    }
+
+    .btn-success:hover {
+      background-color: var(--accent-dark-green);
+      box-shadow: 0 6px 20px rgba(56, 142, 60, 0.8);
+      transform: translateY(-2px);
+    }
+
+    .modal-imagem {
+      max-width: 100%;
+      height: auto;
       border-radius: 10px;
     }
-    .btn-danger {
-      background-color: #FF3131;
-      border: none;
-    }
-    .btn-danger:hover {
-      background-color: #D00000;
+
+    @media (max-width: 767px) {
+      h1.produto-titulo {
+        font-size: 2.4rem;
+      }
+      .preco-branco {
+        font-size: 1.5rem;
+      }
+      .product-form {
+        padding: 20px 15px;
+      }
+      .nav-link {
+        padding: 10px 15px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-    <body style="background-color: #0A1F44; color: white;">
-  <a href="../index.html" style="position: absolute; top: 20px; left: 20px; color: rgb(255, 255, 255); text-decoration: none; font-size: 1.2rem;">
-    ⬅ Voltar
-  </a>
 
-  <div class="container mt-5">
-
-    <!-- Adicione imagem, botão de comprar, descrição etc -->
-  </div>
-</body>
-
+  <nav class="nav-top">
+    <a href="../index.html" class="nav-link nav-link-voltar" aria-label="Voltar para página inicial">⬅ Voltar</a>
+    <a href="carrinho.html" class="nav-link nav-link-carrinho" aria-label="Ver carrinho de compras">
+      🛒 Carrinho <span class="cart-count" id="cartCount">0</span>
+    </a>
+  </nav>
 
   <div class="container produto">
-    <div class="row align-items-center">
+    <div class="row align-items-center gy-5">
       <div class="col-md-6 text-center">
-        <img src="/dev.web-main/img/PRODUTOS/produto2.png" alt="Squeeze Homem-Aranha" />
+        <img src="../img/PRODUTOS/produto2.png" 
+             alt="Squeeze Homem-Aranha 500ml em cores vermelha e azul com detalhes do personagem" 
+             loading="lazy" 
+             width="500" 
+             height="500" 
+             data-bs-toggle="modal" 
+             data-bs-target="#imagemModal" />
       </div>
       <div class="col-md-6">
-        <h1 style="font-family: 'Bangers', cursive; font-size: 3rem;">Squeeze 500ml 🕷️</h1>
-        <p class="mb-4">Leve seu herói favorito com você! Ideal para escola, treino ou aventuras urbanas.</p>
-        <h4 class="text-success mb-3">R$ 24,90</h4>
-        <form>
-          <div class="mb-3">
+        <h1 class="produto-titulo">Squeeze 500ml 🕷️</h1>
+        <p>Leve seu herói favorito com você! Ideal para escola, treino ou aventuras urbanas. Feito com material livre de BPA e resistente a impactos.</p>
+        
+        <div class="d-flex align-items-center mb-4">
+          <div class="preco-branco">
+            R$ 24,90 <small><del style="color: #aaa; font-weight: normal;">R$ 39,99</del></small>
+          </div>
+          <span class="badge bg-danger badge-discount">37% OFF</span>
+        </div>
+
+        <form id="form-carrinho" class="product-form" aria-label="Formulário para adicionar produto ao carrinho">
+          <div class="mb-4">
             <label for="cor" class="form-label">Cor:</label>
-            <select class="form-select text-dark" id="cor">
-              <option>Vermelho</option>
-              <option>Preto</option>
+            <select class="form-select text-dark" id="cor" required aria-label="Selecione a cor do squeeze">
+              <option value="" selected disabled>Selecione uma cor</option>
+              <option value="Vermelho">Vermelho</option>
+              <option value="Preto">Preto</option>
             </select>
           </div>
-          <div class="mb-3">
+          <div class="mb-4">
             <label for="quantidade" class="form-label">Quantidade:</label>
-            <input type="number" class="form-control text-dark" id="quantidade" value="1" min="1" />
+            <input type="number" class="form-control text-dark" id="quantidade" 
+                   name="quantidade" min="1" max="10" value="1" required 
+                   aria-label="Quantidade de squeezes">
           </div>
-          <button class="btn btn-danger w-100">🛒 Adicionar ao Carrinho</button>
+          <button type="submit" class="btn btn-danger w-100 mb-3" aria-label="Adicionar ao carrinho">
+            🛒 Adicionar ao Carrinho
+          </button>
+          <button type="button" class="btn btn-success w-100" id="comprarAgora" aria-label="Comprar agora">
+            💳 Comprar Agora
+          </button>
         </form>
       </div>
     </div>
   </div>
 
+  <!-- Modal para imagem ampliada -->
+  <div class="modal fade" id="imagemModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-dark">
+        <div class="modal-header border-0">
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="../img/PRODUTOS/produto2.png" class="modal-imagem" 
+               alt="Visão ampliada do Squeeze Homem-Aranha 500ml">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Atualizar contador do carrinho
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantidade, 0);
+      document.getElementById('cartCount').textContent = totalItems;
+    }
+
+    // Adicionar produto ao carrinho
+    function adicionarAoCarrinho(redirect = false) {
+      const cor = document.getElementById('cor').value;
+      const quantidade = parseInt(document.getElementById('quantidade').value);
+
+      if (!cor) {
+        alert('Por favor, selecione uma cor.');
+        return false;
+      }
+
+      if (quantidade < 1 || quantidade > 10) {
+        alert('Quantidade deve ser entre 1 e 10.');
+        return false;
+      }
+
+      const produto = {
+        id: 'squeeze-homem-aranha',
+        nome: 'Squeeze 500ml - Homem-Aranha',
+        preco: 24.90,
+        variacao: cor,
+        quantidade: quantidade,
+        imagem: '../img/PRODUTOS/produto2.png'
+      };
+
+      let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const index = carrinho.findIndex(item => 
+        item.id === produto.id && item.variacao === produto.variacao);
+
+      if (index > -1) {
+        carrinho[index].quantidade += produto.quantidade;
+      } else {
+        carrinho.push(produto);
+      }
+
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      updateCartCount();
+
+      // Feedback visual
+      const feedback = document.createElement('div');
+      feedback.innerHTML = `✔️ ${quantidade}x ${produto.nome} (${cor}) adicionado!`;
+      feedback.style.position = 'fixed';
+      feedback.style.bottom = '20px';
+      feedback.style.right = '20px';
+      feedback.style.backgroundColor = '#4CAF50';
+      feedback.style.color = 'white';
+      feedback.style.padding = '15px';
+      feedback.style.borderRadius = '5px';
+      feedback.style.zIndex = '1000';
+      document.body.appendChild(feedback);
+      
+      setTimeout(() => {
+        feedback.style.opacity = '0';
+        feedback.style.transition = 'opacity 1s';
+        setTimeout(() => feedback.remove(), 1000);
+      }, 3000);
+
+      if (redirect) {
+        setTimeout(() => {
+          window.location.href = 'carrinho.html?checkout=true';
+        }, 500);
+      }
+
+      return true;
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCartCount();
+      
+      document.getElementById('form-carrinho').addEventListener('submit', function(e) {
+        e.preventDefault();
+        adicionarAoCarrinho();
+      });
+
+      document.getElementById('comprarAgora').addEventListener('click', function() {
+        adicionarAoCarrinho(true);
+      });
+
+      // Validar quantidade
+      document.getElementById('quantidade').addEventListener('change', function() {
+        if (this.value > 10) {
+          alert('Quantidade máxima por pedido é 10 unidades.');
+          this.value = 10;
+        }
+      });
+    });
+  </script>
 </body>
 </html>
