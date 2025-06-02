@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Seu carrinho de compras - Universo Geek">
+  <title>Carrinho de Compras | Universo Geek</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --primary-bg: #0A1F44;
+      --secondary-bg: #142c66;
+      --accent-red: #FF3131;
+      --accent-dark-red: #D00000;
+      --accent-green: #4CAF50;
+    }
+    
+    body {
+      background-color: var(--primary-bg);
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    h1 {
+      font-family: 'Bangers', cursive;
+      color: var(--accent-red);
+      margin: 0;
+    }
+
+    .cart-container {
+      background-color: var(--secondary-bg);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .cart-table th {
+      background-color: var(--accent-red);
+      padding: 15px;
+      text-align: left;
+    }
+
+    .cart-table td {
+      padding: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .cart-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .product-img {
+      width: 60px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .btn {
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-danger {
+      background-color: var(--accent-red);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: var(--accent-dark-red);
+      transform: translateY(-2px);
+    }
+
+    .btn-success {
+      background-color: var(--accent-green);
+      color: white;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+    }
+
+    .btn-success:hover {
+      background-color: #388e3c;
+      transform: translateY(-2px);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2rem;
+    }
+
+    .cart-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .total-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .cart-table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .cart-summary {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      
+      .actions {
+        width: 100%;
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🕸️ Seu Carrinho</h1>
+    <a href="../index.html" class="btn btn-danger">← Continuar Comprando</a>
+  </div>
+
+  <div class="cart-container">
+    <table class="cart-table" id="cartTable">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Variação</th>
+          <th>Quantidade</th>
+          <th>Preço</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="cartItems">
+        <!-- Itens serão inseridos pelo JavaScript -->
+      </tbody>
+    </table>
+
+    <div id="emptyCart" class="empty-cart" style="display: none;">
+      <p>Seu carrinho está vazio</p>
+      <a href="../index.html" class="btn btn-success">Ver Produtos</a>
+    </div>
+
+    <div class="cart-summary" id="cartSummary" style="display: none;">
+      <div class="total-price">
+        Total: <span id="totalPrice">R$ 0,00</span>
+      </div>
+      <div class="actions">
+        <button class="btn btn-danger" onclick="limparCarrinho()">Limpar Carrinho</button>
+        <button class="btn btn-success" onclick="finalizarCompra()">Finalizar Compra</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Carregar carrinho
+    function carregarCarrinho() {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const cartItems = document.getElementById('cartItems');
+      const emptyCart = document.getElementById('emptyCart');
+      const cartSummary = document.getElementById('cartSummary');
+      
+      // Limpar tabela
+      cartItems.innerHTML = '';
+      
+      if (carrinho.length === 0) {
+        document.getElementById('cartTable').style.display = 'none';
+        emptyCart.style.display = 'block';
+        cartSummary.style.display = 'none';
+        return;
+      }
+      
+      document.getElementById('cartTable').style.display = 'table';
+      emptyCart.style.display = 'none';
+      cartSummary.style.display = 'flex';
+      
+      let total = 0;
+      
+      carrinho.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        const price = parseFloat(item.preco.replace('R$ ', '').replace(',', '.'));
+        const subtotal = price * item.quantidade;
+        total += subtotal;
+        
+        tr.innerHTML = `
+          <td>
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <img src="${item.imagem}" alt="${item.nome}" class="product-img">
+              <span>${item.nome}</span>
+            </div>
+          </td>
+          <td>${item.variacao || '-'}</td>
+          <td>
+            <input type="number" min="1" value="${item.quantidade}" 
+                   onchange="atualizarQuantidade(${index}, this.value)" 
+                   style="width: 60px; padding: 5px; text-align: center;">
+          </td>
+          <td>R$ ${subtotal.toFixed(2).replace('.', ',')}</td>
+          <td><button class="btn btn-danger" onclick="removerItem(${index})">Remover</button></td>
+        `;
+        
+        cartItems.appendChild(tr);
+      });
+      
+      document.getElementById('totalPrice').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+    
+    // Atualizar quantidade
+    function atualizarQuantidade(index, novaQuantidade) {
+      novaQuantidade = parseInt(novaQuantidade);
+      if (novaQuantidade < 1) novaQuantidade = 1;
+      
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      carrinho[index].quantidade = novaQuantidade;
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      carregarCarrinho();
+    }
+    
+    // Remover item
+    function removerItem(index) {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      carrinho.splice(index, 1);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      carregarCarrinho();
+      
+      // Atualizar contador na outra página
+      if (window.opener) {
+        window.opener.updateCartCount();
+      }
+    }
+    
+    // Limpar carrinho
+    function limparCarrinho() {
+      if (confirm('Tem certeza que deseja limpar seu carrinho?')) {
+        localStorage.removeItem('carrinho');
+        carregarCarrinho();
+        
+        // Atualizar contador na outra página
+        if (window.opener) {
+          window.opener.updateCartCount();
+        }
+      }
+    }
+    
+    // Finalizar compra
+    function finalizarCompra() {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      if (carrinho.length === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+      }
+      
+      localStorage.setItem('compra-imediata', JSON.stringify(carrinho));
+      window.location.href = 'conferir.html';
+    }
+    
+    // Verificar se é checkout direto
+    function verificarCheckoutDireto() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('checkout') === 'true') {
+        const compraImediata = JSON.parse(localStorage.getItem('compra-imediata')) || [];
+        if (compraImediata.length > 0) {
+          finalizarCompra();
+        }
+      }
+    }
+    
+    // Inicializar
+    document.addEventListener('DOMContentLoaded', function() {
+      carregarCarrinho();
+      verificarCheckoutDireto();
+    });
+  </script>
+  
+</body>
+</html>

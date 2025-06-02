@@ -100,20 +100,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item p-1">
-              <a class="btn btn-outline-light" href="#">EM BREVE FILMES</a>
+            <a class="btn btn-outline-light" href="/dev.web-main/index.html" tabindex="0">Inicio</a>
+              <a class="btn btn-outline-light" href="/dev.web-main/pages/carrinho.html" tabindex="0">Ver Carrinho</a>
+                <a class="btn btn-outline-light" href="/dev.web-main/pages/contatos.html" tabindex="0">Ver Contatos</a>
             </li>
-            <li class="nav-item dropdown p-1">
-              <a class="nav-link dropdown-toggle btn btn-outline-light" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Mais
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="contatos.html">Contatos</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="produtos.html">Produtos</a></li>
-                <li><a class="dropdown-item" href="#">Em breve</a></li>
-              </ul>
-            </li>
+           
           </ul>
 
           <form class="d-flex" role="search" onsubmit="event.preventDefault(); /* implementar busca */">
@@ -130,7 +121,7 @@
     <section class="spiderman-section">
       <div class="container">
         <h2 class="text-center mb-5" style="font-family: 'Bangers', cursive; font-size: 3rem; color: #FF3131;">
-          Confira os Produtos do Universo Homem-Aranha!🕷️
+          Confira os Produtos do Universo Aranha!
         </h2>
 
         <div class="row justify-content-center g-4">
@@ -222,5 +213,57 @@
 
   <!-- Script do Bootstrap para funcionalidade da navbar e dropdown -->
   <script src="../js/bootstrap.bundle.min.js"></script>
+ <script>
+  // Função para adicionar item ao carrinho
+  function adicionarAoCarrinho(produto) {
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    
+    // Verifica se já existe o mesmo produto com mesma variação
+    const index = carrinho.findIndex(item => 
+      item.id === produto.id && 
+      item.variacao === produto.variacao
+    );
+
+    if (index > -1) {
+      carrinho[index].quantidade += produto.quantidade;
+    } else {
+      carrinho.push(produto);
+    }
+
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    
+    // Feedback visual
+    const feedback = document.createElement('div');
+    feedback.className = 'alert alert-success position-fixed top-50 start-50 translate-middle';
+    feedback.textContent = 'Produto adicionado ao carrinho!';
+    feedback.style.zIndex = '2000';
+    document.body.appendChild(feedback);
+
+    setTimeout(() => feedback.remove(), 1500);
+  }
+
+  // Atualizar os event listeners
+  document.querySelectorAll('form').forEach((form) => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const card = form.closest('.card');
+      const produto = {
+        id: card.querySelector('img').src.split('/').pop().split('.')[0], // pega o nome do arquivo como ID
+        nome: card.querySelector('.card-title').textContent,
+        preco: 34.99, // Você deve adicionar o preço real aqui
+        variacao: form.querySelector('select') ? form.querySelector('select').value : null,
+        quantidade: parseInt(form.querySelector('input[type="number"]').value),
+        imagem: card.querySelector('img').src
+      };
+
+      adicionarAoCarrinho(produto);
+    });
+  });
+
+  // Corrigir o link do carrinho
+  document.querySelector('.btn-danger[href*="carrinho.html"]').href = '../pages/carrinho.html';
+  
+</script>
 </body>
 </html>

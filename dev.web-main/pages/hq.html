@@ -2,91 +2,316 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HQ Vol. 117 - Homem-Aranha</title>
-
-  <!-- Bootstrap CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="HQ exclusiva do Homem-Aranha Vol. 117 - Edição colecionável">
+  <title>HQ Vol. 117 - Homem-Aranha | Universo Geek</title>
   <link rel="stylesheet" href="../css/bootstrap.min.css" />
-
-  <!-- Fonte Bangers -->
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet"/>
-
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
+  
   <style>
-    /* Estilo geral do corpo */
+    :root {
+      --primary-bg: #0A1F44;
+      --secondary-bg: #142c66;
+      --accent-red: #FF3131;
+      --accent-dark-red: #D00000;
+      --accent-green: #4CAF50;
+      --accent-dark-green: #388e3c;
+    }
+    
     body {
-      background-color: #0A1F44;
+      background-color: var(--primary-bg);
       color: white;
       font-family: Arial, sans-serif;
+      padding-top: 70px;
     }
 
-    /* Espaçamento vertical da seção do produto */
     .produto {
-      padding: 50px 0;
+      padding: 30px 0 50px 0;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    /* Imagem responsiva com bordas arredondadas */
     .produto img {
       max-width: 100%;
       border-radius: 10px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+      cursor: zoom-in;
     }
 
-    /* Botão vermelho personalizado */
+    .produto img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+    }
+
+    h1.produto-titulo {
+      font-family: 'Bangers', cursive;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: var(--accent-red);
+      text-shadow: 1px 1px 4px #990000cc;
+    }
+
+    .preco-branco {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 30px;
+    }
+
+    .preco-branco small del {
+      color: #aaa;
+      font-weight: normal;
+      font-size: 1.2rem;
+    }
+
     .btn-danger {
-      background-color: #FF3131;
+      background-color: var(--accent-red);
       border: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 14px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px #FF3131cc;
+      transition: all 0.3s ease;
     }
 
-    /* Cor ao passar o mouse no botão */
     .btn-danger:hover {
-      background-color: #D00000;
+      background-color: var(--accent-dark-red);
+      box-shadow: 0 6px 20px #b00000cc;
+      transform: translateY(-2px);
+    }
+
+    .btn-success {
+      background-color: var(--accent-green);
+      border: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 14px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px #00ff08cc;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .btn-success:hover {
+      background-color: var(--accent-dark-green);
+      box-shadow: 0 6px 20px #388e3ccc;
+      transform: translateY(-2px);
+    }
+
+    .nav-top {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background-color: var(--primary-bg);
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .nav-link {
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link-voltar {
+      background: #444;
+      color: white;
+    }
+
+    .nav-link-voltar:hover {
+      background-color: #222;
+      transform: translateX(-3px);
+    }
+
+    .nav-link-carrinho {
+      background: var(--accent-red);
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link-carrinho:hover {
+      background-color: var(--accent-dark-red);
+      transform: translateX(3px);
+    }
+
+    .cart-count {
+      background-color: white;
+      color: var(--accent-red);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 767px) {
+      h1.produto-titulo {
+        font-size: 2.2rem;
+      }
+      .preco-branco {
+        font-size: 1.5rem;
+      }
+      .produto {
+        padding: 20px 15px 50px 15px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Link para voltar para a página inicial -->
-  <a href="../index.html" style="position: absolute; top: 20px; left: 20px; color: white; text-decoration: none; font-size: 1.2rem;">
-    ⬅ Voltar
-  </a>
+  <nav class="nav-top">
+    <a href="../index.html" class="nav-link nav-link-voltar">⬅ Voltar</a>
+    <a href="carrinho.html" class="nav-link nav-link-carrinho">
+      🛒 Carrinho <span class="cart-count" id="cartCount">0</span>
+    </a>
+  </nav>
 
-  <!-- Título principal da página -->
-  <div class="container mt-5">
-    <!-- Aqui você pode adicionar mais conteúdo caso queira -->
-  </div>
-
-  <!-- Seção principal do produto -->
   <div class="container produto">
-    <div class="row align-items-center">
-      
-      <!-- Imagem do produto -->
+    <div class="row align-items-center gy-4">
       <div class="col-md-6 text-center">
-        <img src="/dev.web-main/img/PRODUTOS/produto1.png" alt="HQ Homem-Aranha" />
+        <img src="/site/img/PRODUTOS/produto1.png" alt="Capa da HQ Homem-Aranha Vol. 117 - Edição especial" loading="lazy" />
       </div>
-
-      <!-- Informações do produto e formulário -->
       <div class="col-md-6">
-        <h1 style="font-family: 'Bangers', cursive; font-size: 3rem;">HQ Vol. 117 🕸️</h1>
-       
-        <h4 class="text-success mb-3">R$ 34,90</h4>
-
-        <!-- Formulário para seleção de formato e quantidade -->
-        <form>
+        <h1 class="produto-titulo">HQ Vol. 117 🕸️</h1>
+        <div class="preco-branco">
+          <span class="current-price">R$ 34,99</span> <small><del>R$ 205,99</del></small>
+        </div>
+        <p class="text-muted mb-4">Edição especial limitada - Colecionável</p>
+        
+        <form id="form-carrinho">
           <div class="mb-3">
             <label for="formato" class="form-label">Formato:</label>
-            <select class="form-select text-dark" id="formato">
-              <option>Padrão</option>
-              <option>Edição Luxo</option>
+            <select class="form-select text-dark" id="formato" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="Padrão">Padrão</option>
+              <option value="Edição Luxo">Edição Luxo (+ R$ 15,00)</option>
             </select>
           </div>
           <div class="mb-3">
             <label for="quantidade" class="form-label">Quantidade:</label>
-            <input type="number" class="form-control text-dark" id="quantidade" value="1" min="1" />
+            <input type="number" class="form-control text-dark" id="quantidade" 
+                   value="1" min="1" max="10" required />
           </div>
           <button type="submit" class="btn btn-danger w-100">🛒 Adicionar ao Carrinho</button>
+          <button type="button" class="btn btn-success w-100" onclick="comprarAgora()">💳 Comprar Agora</button>
         </form>
       </div>
     </div>
   </div>
 
+  <script>
+    // Atualizar contador do carrinho
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantidade, 0);
+      document.getElementById('cartCount').textContent = totalItems;
+    }
+
+    // Função para adicionar no carrinho
+    function adicionarAoCarrinho(produto) {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const index = carrinho.findIndex(item => 
+        item.id === produto.id && item.variacao === produto.variacao);
+
+      if (index > -1) {
+        carrinho[index].quantidade += produto.quantidade;
+      } else {
+        carrinho.push(produto);
+      }
+
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      updateCartCount();
+      
+      // Feedback visual
+      const feedback = document.createElement('div');
+      feedback.innerHTML = `✔️ ${produto.quantidade}x ${produto.nome} adicionado!`;
+      feedback.style.position = 'fixed';
+      feedback.style.bottom = '20px';
+      feedback.style.right = '20px';
+      feedback.style.backgroundColor = '#4CAF50';
+      feedback.style.color = 'white';
+      feedback.style.padding = '15px';
+      feedback.style.borderRadius = '5px';
+      feedback.style.zIndex = '1000';
+      document.body.appendChild(feedback);
+      
+      setTimeout(() => {
+        feedback.style.opacity = '0';
+        feedback.style.transition = 'opacity 1s';
+        setTimeout(() => feedback.remove(), 1000);
+      }, 3000);
+    }
+
+    // Evento de submit do formulário
+    document.getElementById('form-carrinho').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formato = document.getElementById('formato').value;
+      if (!formato) {
+        alert('Por favor, selecione um formato.');
+        return;
+      }
+
+      const produto = {
+        id: 'hq-vol-117',
+        nome: 'HQ Vol. 117 - Homem-Aranha',
+        preco: formato === 'Edição Luxo' ? 'R$ 49,99' : 'R$ 34,99',
+        variacao: formato,
+        quantidade: parseInt(document.getElementById('quantidade').value),
+        imagem: '/dev.web-main/img/PRODUTOS/produto1.png'
+      };
+
+      adicionarAoCarrinho(produto);
+    });
+
+    // Função para compra imediata
+    function comprarAgora() {
+      const formato = document.getElementById('formato').value;
+      if (!formato) {
+        alert('Por favor, selecione um formato.');
+        return;
+      }
+
+      const produto = {
+        id: 'hq-vol-117',
+        nome: 'HQ Vol. 117 - Homem-Aranha',
+        preco: formato === 'Edição Luxo' ? 'R$ 49,99' : 'R$ 34,99',
+        variacao: formato,
+        quantidade: parseInt(document.getElementById('quantidade').value),
+        imagem: '/dev.web-main/img/PRODUTOS/produto1.png'
+      };
+
+      localStorage.setItem('compra-imediata', JSON.stringify([produto]));
+      window.location.href = 'carrinho.html?checkout=true';
+    }
+
+    // Inicializar
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCartCount();
+      
+      // Validar quantidade máxima
+      document.getElementById('quantidade').addEventListener('change', function() {
+        if (this.value > 10) {
+          alert('Quantidade máxima por pedido é 10 unidades.');
+          this.value = 10;
+        }
+      });
+    });
+  </script>
+  
+
+  <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
