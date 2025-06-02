@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Homem-Aranha</title>
+  <title>AranhaNet</title>
 
   <link rel="icon" type="image/png" href="img/aranha.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -218,48 +218,6 @@
       text-align: center;
       padding: 1rem;
     }
-
-    /* Controles de música - Estilo sombrio */
-    .music-controls {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      background-color: rgba(10, 31, 68, 0.9); /* Azul escuro do tema */
-      border: 2px solid #D00000; /* Vermelho do Homem-Aranha */
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-      transition: all 0.3s ease;
-    }
-
-    .music-controls:hover {
-      transform: scale(1.1);
-      background-color: rgba(208, 0, 0, 0.8); /* Vermelho ao passar o mouse */
-      box-shadow: 0 0 15px rgba(208, 0, 0, 0.6); /* Efeito de brilho vermelho */
-    }
-
-    .music-controls i {
-      color: white;
-      font-size: 24px;
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-    }
-
-    /* Efeito pulsante quando a música está tocando */
-    .music-controls.playing {
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(208, 0, 0, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(208, 0, 0, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(208, 0, 0, 0); }
-    }
   </style>
 </head>
 
@@ -268,38 +226,33 @@
   <header>
     <nav class="navbar navbar-expand-lg">
       <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="Home - Homem-Aranha">
-          <img src="img/aranha.png" alt="Logo Homem-Aranha" width="30" height="30" class="me-2" loading="lazy" />
-          Homem-Aranha
+       <!-- Logo + Nome -->
+        <a class="navbar-brand" href="#">
+          <img src="img/aranha.png" alt="Logo Homem-Aranha" width="40" height="40" />
+          AranhaNet
         </a>
-
         <button class="navbar-toggler text-white" type="button" 
                 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" 
                 aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center gap-2">
+    <li class="nav-item">
+      <a class="btn btn-outline-light" href="pages/produtos.html" tabindex="0">Ver produtos</a>
+    </li>
+    <li class="nav-item position-relative">
+      <a class="btn btn-outline-light" href="pages/carrinho.html" tabindex="0">
+  Carrinho 🛒
+</a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center gap-2">
-            <li class="nav-item">
-              <a class="btn btn-outline-light" href="#" tabindex="0">Em breve Filmes</a>
-            </li>
-            <li class="nav-item dropdown">
-              <div class="btn-group">
-                <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" 
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Mais opções
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="pages/produtos.html">Ver produtos</a></li>
-                  <li><a class="dropdown-item" href="pages/carrinho.html">ver carrinho</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">Em breve</a></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+       
+      </a>
+    </li>
+  </ul>
+</div>
+
 
           <form id="search-form" class="d-flex me-2" role="search" onsubmit="return false;" style="gap: 8px;">
             <input id="search-input" class="form-control form-control-sm me-2"
@@ -313,7 +266,6 @@
               <option value="hq" style="color: black;">HQs</option>
               <option value="garrafa" style="color: black;">Garrafas</option>
               <option value="camiseta" style="color: black;">Camisetas</option>
-              <option value="filme" style="color: black;">em breve </option>
             </select>
           </form>
         </div>
@@ -433,16 +385,6 @@
     </div>
   </footer>
 
-  <!-- Controles de música -->
-  <div class="music-controls" id="musicToggle" title="Play/Pause música tema">
-    <i class="fas fa-spider"></i>
-  </div>
-
-  <!-- Áudio para a música tema -->
-  <audio id="spiderManTheme" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" type="audio/mpeg">
-    Seu navegador não suporta o elemento de áudio.
-  </audio>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -454,53 +396,7 @@
       const carousel = document.getElementById('carouselExampleCaptions');
       const productsContainer = document.getElementById('products');
       const products = productsContainer.querySelectorAll('article');
-      
-      // Controles de música - Versão sombria
-      const musicToggle = document.getElementById('musicToggle');
-      const spiderManTheme = document.getElementById('spiderManTheme');
-      let isPlaying = false;
-      
-      // Função para tocar/pausar a música
-      function toggleMusic() {
-        if (isPlaying) {
-          spiderManTheme.pause();
-          musicToggle.innerHTML = '<i class="fas fa-spider"></i>';
-          musicToggle.classList.remove('playing');
-        } else {
-          spiderManTheme.play();
-          musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-          musicToggle.classList.add('playing');
-        }
-        isPlaying = !isPlaying;
-      }
-      
-      // Adiciona evento de clique ao controle de música
-      musicToggle.addEventListener('click', toggleMusic);
-      
-      // Tenta tocar a música automaticamente (requer interação do usuário)
-      function tryAutoPlay() {
-        if (!isPlaying) {
-          const promise = spiderManTheme.play();
-          
-          if (promise !== undefined) {
-            promise.then(_ => {
-              isPlaying = true;
-              musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-              musicToggle.classList.add('playing');
-            })
-            .catch(error => {
-              // Reprodução automática foi prevenida
-              console.log('Reprodução automática prevenida:', error);
-              // Mostra alerta para o usuário interagir
-              musicToggle.style.display = 'flex'; // Garante que está visível
-            });
-          }
-        }
-      }
-      
-      // Tenta tocar quando o usuário interage com a página
-      document.addEventListener('click', tryAutoPlay, { once: true });
-      
+
       // Filtro de produtos
       function filterProducts() {
         const searchTerm = searchInput.value.toLowerCase();
@@ -554,6 +450,10 @@
       searchInput.addEventListener('input', filterProducts);
       categoryFilter.addEventListener('change', filterProducts);
     });
+
+
+
+    
   </script>
 </body>
 </html>

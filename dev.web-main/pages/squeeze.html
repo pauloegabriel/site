@@ -246,7 +246,7 @@
              data-bs-target="#imagemModal" />
       </div>
       <div class="col-md-6">
-        <h1 class="produto-titulo">Squeeze 500ml 🕷️</h1>
+        <h1 class="produto-titulo">Squeeze 500ml </h1>
         <p>Leve seu herói favorito com você! Ideal para escola, treino ou aventuras urbanas. Feito com material livre de BPA e resistente a impactos.</p>
         
         <div class="d-flex align-items-center mb-4">
@@ -298,100 +298,84 @@
   </div>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Atualizar contador do carrinho
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const totalItems = cart.reduce((sum, item) => sum + item.quantidade, 0);
-      document.getElementById('cartCount').textContent = totalItems;
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script>
+  const form = document.getElementById("form-carrinho");
+
+  // ✅ Atualiza contador visual do carrinho
+  function atualizarContadorCarrinho() {
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    const total = carrinho.reduce((soma, item) => soma + parseInt(item.quantidade), 0);
+    document.getElementById("cartCount").textContent = total;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const produto = {
+      id: 'squeeze-spiderman',
+      nome: document.querySelector("h1.produto-titulo").innerText,
+      preco: document.querySelector(".preco-branco").innerText,
+      variacao: document.getElementById("cor").value,
+      quantidade: parseInt(document.getElementById("quantidade").value),
+      imagem: document.querySelector("img").src
+    };
+
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+    const index = carrinho.findIndex(item =>
+      item.id === produto.id &&
+      item.variacao === produto.variacao
+    );
+
+    if (index > -1) {
+      carrinho[index].quantidade += produto.quantidade;
+    } else {
+      carrinho.push(produto);
     }
 
-    // Adicionar produto ao carrinho
-    function adicionarAoCarrinho(redirect = false) {
-      const cor = document.getElementById('cor').value;
-      const quantidade = parseInt(document.getElementById('quantidade').value);
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
 
-      if (!cor) {
-        alert('Por favor, selecione uma cor.');
-        return false;
-      }
+    atualizarContadorCarrinho(); // ✅ Atualiza o número após adicionar
 
-      if (quantidade < 1 || quantidade > 10) {
-        alert('Quantidade deve ser entre 1 e 10.');
-        return false;
-      }
+    const feedback = document.createElement('div');
+    feedback.innerHTML = `
+      <div style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #4CAF50;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        z-index: 10000;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      ">
+        ✅ Squeeze adicionado ao carrinho!
+      </div>
+    `;
+    document.body.appendChild(feedback);
+    setTimeout(() => feedback.remove(), 2000);
+  });
 
-      const produto = {
-        id: 'squeeze-homem-aranha',
-        nome: 'Squeeze 500ml - Homem-Aranha',
-        preco: 24.90,
-        variacao: cor,
-        quantidade: quantidade,
-        imagem: '../img/PRODUTOS/produto2.png'
-      };
+  function comprarAgora() {
+    const produto = {
+      id: 'squeeze-spiderman',
+      nome: document.querySelector("h1.produto-titulo").innerText,
+      preco: document.querySelector(".preco-branco").innerText,
+      variacao: document.getElementById("cor").value,
+      quantidade: parseInt(document.getElementById("quantidade").value),
+      imagem: document.querySelector("img").src
+    };
+    localStorage.setItem("compra-imediata", JSON.stringify(produto));
+    window.location.href = "conferir.html";
+  }
 
-      let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const index = carrinho.findIndex(item => 
-        item.id === produto.id && item.variacao === produto.variacao);
+  document.getElementById("comprarAgora").addEventListener("click", comprarAgora);
 
-      if (index > -1) {
-        carrinho[index].quantidade += produto.quantidade;
-      } else {
-        carrinho.push(produto);
-      }
+  // ✅ Atualiza contador ao abrir a página
+  document.addEventListener("DOMContentLoaded", atualizarContadorCarrinho);
+</script>
 
-      localStorage.setItem('carrinho', JSON.stringify(carrinho));
-      updateCartCount();
-
-      // Feedback visual
-      const feedback = document.createElement('div');
-      feedback.innerHTML = `✔️ ${quantidade}x ${produto.nome} (${cor}) adicionado!`;
-      feedback.style.position = 'fixed';
-      feedback.style.bottom = '20px';
-      feedback.style.right = '20px';
-      feedback.style.backgroundColor = '#4CAF50';
-      feedback.style.color = 'white';
-      feedback.style.padding = '15px';
-      feedback.style.borderRadius = '5px';
-      feedback.style.zIndex = '1000';
-      document.body.appendChild(feedback);
-      
-      setTimeout(() => {
-        feedback.style.opacity = '0';
-        feedback.style.transition = 'opacity 1s';
-        setTimeout(() => feedback.remove(), 1000);
-      }, 3000);
-
-      if (redirect) {
-        setTimeout(() => {
-          window.location.href = 'carrinho.html?checkout=true';
-        }, 500);
-      }
-
-      return true;
-    }
-
-    // Event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-      updateCartCount();
-      
-      document.getElementById('form-carrinho').addEventListener('submit', function(e) {
-        e.preventDefault();
-        adicionarAoCarrinho();
-      });
-
-      document.getElementById('comprarAgora').addEventListener('click', function() {
-        adicionarAoCarrinho(true);
-      });
-
-      // Validar quantidade
-      document.getElementById('quantidade').addEventListener('change', function() {
-        if (this.value > 10) {
-          alert('Quantidade máxima por pedido é 10 unidades.');
-          this.value = 10;
-        }
-      });
-    });
-  </script>
 </body>
 </html>
