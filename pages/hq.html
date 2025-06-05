@@ -181,12 +181,12 @@
   <div class="container produto">
     <div class="row align-items-center gy-4">
       <div class="col-md-6 text-center">
-        <img src="/dev.web-main/img/PRODUTOS/produto3.png" alt="Capa da HQ Homem-Aranha Vol. 117 - Edição especial" loading="lazy" />
+        <img src="../img/PRODUTOS/produto1.png" alt="Capa da HQ Homem-Aranha Vol. 117 - Edição especial" loading="lazy" />
       </div>
       <div class="col-md-6">
-        <h1 class="produto-titulo">camiseta 100% algodão 🕸️</h1>
+        <h1 class="produto-titulo">HQ Vol. 117 🕸️</h1>
         <div class="preco-branco">
-          <span class="current-price">R$ 80,99</span> <small><del>R$ 205,99</del></small>
+          <span class="current-price">R$ 34,99</span> <small><del>R$ 205,99</del></small>
         </div>
         <p class="text-muted mb-4">Edição especial limitada - Colecionável</p>
         
@@ -196,7 +196,7 @@
             <select class="form-select text-dark" id="formato" required>
               <option value="" disabled selected>Selecione</option>
               <option value="Padrão">Padrão</option>
-              <option value="Edição Luxo">Edição Luxo (+ R$20,00)</option>
+              <option value="Edição Luxo">Edição Luxo (+ R$ 15,00)</option>
             </select>
           </div>
           <div class="mb-3">
@@ -265,12 +265,12 @@
       }
 
       const produto = {
-        id: 'camiseta',
-        nome: 'camisa - Homem-Aranha',
+        id: 'hq-vol-117',
+        nome: 'HQ Vol. 117 - Homem-Aranha',
         preco: formato === 'Edição Luxo' ? 'R$ 49,99' : 'R$ 34,99',
         variacao: formato,
         quantidade: parseInt(document.getElementById('quantidade').value),
-        imagem: '/dev.web-main/img/PRODUTOS/produto3.png'
+        imagem: '/dev.web-main/img/PRODUTOS/produto1.png'
       };
 
       adicionarAoCarrinho(produto);
@@ -285,8 +285,8 @@
       }
 
       const produto = {
-        id: 'camiseta',
-        nome: 'camisa',
+        id: 'hq-vol-117',
+        nome: 'HQ Vol. 117 - Homem-Aranha',
         preco: formato === 'Edição Luxo' ? 'R$ 49,99' : 'R$ 34,99',
         variacao: formato,
         quantidade: parseInt(document.getElementById('quantidade').value),
@@ -310,6 +310,7 @@
       });
     });
   </script>
+  
 
   <script src="../js/bootstrap.bundle.min.js"></script>
 </body>
