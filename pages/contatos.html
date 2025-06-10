@@ -126,22 +126,24 @@
         <!-- Menu colapsável -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item p-1">
-              <a class="btn btn-outline-light" href="#">EM BREVE FILMES</a>
-            </li>
-            <li class="nav-item dropdown p-1">
-              <a class="nav-link dropdown-toggle btn btn-outline-light" href="#" role="button" data-bs-toggle="dropdown">
-                Mais
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="contatos.html">Contatos</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="produtos.html">Produtos</a></li>
-                <li><a class="dropdown-item" href="#">Em breve</a></li>
-              </ul>
+            <li class="nav-item">
+  <a class="btn btn-outline-light" href="pages/produtos.html" tabindex="0">Ver produtos</a>
+</li>
+              <li class="nav-item dropdown">
+              <div class="btn-group">
+                <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" 
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                  Mais opções
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href"">em breve filmes</a></li>
+                  <li><a class="dropdown-item" href="">em breve jogos</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">Em breve</a></li>
+                </ul>
+              </div>
             </li>
           </ul>
-
           <!-- Formulário de busca -->
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
