@@ -1,181 +1,557 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contatos - Homem-Aranha</title>
+  <meta name="description" content="Entre em contato com o Universo Homem-Aranha - WhatsApp, Instagram e Email para informações sobre produtos e colecionáveis">
+  <meta name="keywords" content="Homem-Aranha, contato, Marvel, colecionáveis, WhatsApp, Instagram">
+  <title>Contatos | Universo Homem-Aranha</title>
 
-  <!-- Ícone da aba do navegador -->
-  <link rel="shortcut icon" type="image/png" href="../img/aranha.png"/>
+  <!-- Meta tags para redes sociais -->
+  <meta property="og:title" content="Contatos | Universo Homem-Aranha">
+  <meta property="og:description" content="Entre em contato com o Universo Homem-Aranha para informações sobre produtos exclusivos">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://homem-aranha.com/contatos">
+  <meta property="og:image" content="https://homem-aranha.com/img/social-share.jpg">
+  
+  <!-- Favicon e ícones -->
+  <link rel="shortcut icon" type="image/png" href="../img/aranha.png">
+  <link rel="apple-touch-icon" href="../img/aranha.png">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <!-- Pré-carregamento de recursos -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" as="style">
+  <link rel="preload" href="../css/bootstrap.min.css" as="style">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" as="style">
 
-  <!-- Fonte personalizada -->
+  <!-- CDNs -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
+  <!-- CSS personalizado -->
   <style>
-    /* Layout flexível para ocupar a altura total da viewport */
-    html, body {
-      height: 100vh;
+    :root {
+      --primary-color: #D00000;
+      --secondary-color: #0A1F44;
+      --accent-color: #FF4E50;
+      --text-light: #FFFFFF;
+      --text-dark: #212529;
+      --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --spider-web: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50 0v50M50 100V50M0 50h50M100 50H50M15 15l35 35M85 15l-35 35M15 85l35-35M85 85l-35-35" stroke="rgba(208,0,0,0.1)" stroke-width="1" fill="none"/></svg>');
+    }
+
+    /* Reset e base */
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      background-color: var(--secondary-color);
+      color: var(--text-light);
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      background-image: var(--spider-web);
+      background-attachment: fixed;
     }
 
-    /* Estilo do body */
-    body {
-      background-color: #0A1F44;
-      color: #FFFFFF;
-    }
-
-    /* Principal área do conteúdo expande para ocupar espaço disponível */
-    main {
-      flex: 1;
-    }
-
-    /* Navbar com cor vermelha escura */
-    .navbar {
-      background-color: #D00000;
-    }
-
-    /* Estilo da marca da navbar com fonte Bangers */
-    .navbar-brand {
-      color: #FFFFFF !important;
-      font-weight: bold;
+    /* Tipografia */
+    h1, h2, h3, h4, h5, h6 {
       font-family: 'Bangers', cursive;
-      font-size: 1.5rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
     }
 
-    /* Botão com borda e texto branco */
-    .btn-outline-light {
-      border-color: #FFFFFF;
-      color: #FFFFFF;
-    }
-    /* Efeito hover do botão */
-    .btn-outline-light:hover {
-      background-color: #FFFFFF;
-      color: #D00000;
-    }
-
-    /* Menu dropdown da navbar com fundo vermelho escuro */
-    .dropdown-menu {
-      background-color: #D00000;
-    }
-    /* Itens do dropdown com texto branco */
-    .dropdown-item {
-      color: #FFFFFF;
-    }
-    /* Hover dos itens do dropdown */
-    .dropdown-item:hover {
-      background-color: #FFFFFF;
-      color: #D00000;
+    /* Navbar aprimorada */
+    .navbar-spider {
+      background-color: var(--primary-color);
+      box-shadow: 0 4px 12px rgba(208, 0, 0, 0.4);
+      padding: 0.75rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
     }
 
-    /* Seção principal de contato - centralizado com padding */
-    .spiderman-section {
+    .navbar-brand-spider {
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition-base);
+    }
+
+    .navbar-brand-spider img {
+      transition: transform 0.5s ease;
+    }
+
+    .navbar-brand-spider:hover {
+      transform: translateX(5px);
+    }
+
+    .navbar-brand-spider:hover img {
+      transform: rotate(360deg);
+    }
+
+    /* Botões personalizados */
+    .btn-spider {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: var(--transition-base);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-spider:hover {
+      background-color: #b30000;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(208, 0, 0, 0.3);
+    }
+
+    .btn-spider-outline {
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      background: transparent;
+      transition: var(--transition-base);
+    }
+
+    .btn-spider-outline:hover {
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 8px rgba(208, 0, 0, 0.2);
+    }
+
+    /* Seção de contatos */
+    .contact-section {
+      padding: 5rem 1rem;
       text-align: center;
-      padding: 50px;
-    }
-    /* Imagem na seção contato (não usada no momento, mas preparada) */
-    .spiderman-section img {
-      width: 300px;
-      height: auto;
-      border-radius: 10px;
-      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(10, 31, 68, 0.95), rgba(10, 31, 68, 0.98));
     }
 
-    /* Lista de contatos sem estilo de lista padrão */
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: var(--spider-web);
+      background-size: 200px;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .contact-heading {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1.5rem;
+      color: var(--accent-color);
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+      position: relative;
+      animation: spiderSwing 1s ease both;
+    }
+
+    .contact-subheading {
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      margin-bottom: 3rem;
+      opacity: 0.9;
+      position: relative;
+      animation: fadeIn 1s ease 0.3s both;
+    }
+
+    /* Lista de contatos */
     .contact-list {
       list-style: none;
       padding: 0;
-      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
     }
-    /* Espaçamento entre itens da lista */
-    .contact-list li {
-      margin: 10px 0;
+
+    .contact-card {
+      margin: 0;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      border-left: 4px solid var(--primary-color);
+      transition: var(--transition-base);
+      animation: fadeInUp 0.6s ease both;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
-    /* Links de contato na cor vermelha */
-    .contact-list a {
-      color: #D00000;
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 60%, rgba(208, 0, 0, 0.1) 100%);
+      z-index: -1;
+    }
+
+    .contact-card:nth-child(1) { animation-delay: 0.4s; }
+    .contact-card:nth-child(2) { animation-delay: 0.6s; }
+    .contact-card:nth-child(3) { animation-delay: 0.8s; }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(208, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .contact-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: clamp(1.3rem, 2vw, 1.5rem);
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .contact-icon {
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
       text-decoration: none;
+      font-size: 1.1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.5rem;
+      transition: var(--transition-base);
+      background: rgba(208, 0, 0, 0.3);
+      margin-top: 1rem;
+      border: 1px solid rgba(208, 0, 0, 0.5);
     }
-    /* Link com underline ao passar o mouse */
-    .contact-list a:hover {
-      text-decoration: underline;
+
+    .contact-link:hover {
+      background: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(208, 0, 0, 0.3);
+    }
+
+    /* Rodapé */
+    .footer-spider {
+      background: linear-gradient(135deg, var(--secondary-color), #0A1F66);
+      border-top: 4px solid var(--primary-color);
+      padding: 3rem 0 2rem;
+      margin-top: auto;
+      position: relative;
+    }
+
+    .footer-spider::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: var(--spider-web);
+      background-size: 300px;
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.8rem;
+      transition: var(--transition-base);
+      background: rgba(255, 255, 255, 0.1);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .social-links a:hover {
+      color: var(--accent-color);
+      transform: translateY(-5px) scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Animações */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes spiderSwing {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px) rotate(-5deg);
+      }
+      50% {
+        transform: translateY(10px) rotate(5deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+      }
+    }
+
+    /* Seção de comentários */
+    .comments-section {
+      padding: 4rem 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .comments-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(135deg, transparent, rgba(208, 0, 0, 0.05));
+      z-index: 0;
+    }
+
+    .comments-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      background: rgba(10, 31, 68, 0.7);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(208, 0, 0, 0.3);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .contact-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .navbar-brand-spider {
+        font-size: 1.5rem;
+      }
+      
+      .contact-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .contact-section {
+        padding: 3rem 1rem;
+      }
+      
+      .contact-link {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .social-links a {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 
 <body>
+  
   <!-- Cabeçalho com menu de navegação -->
   <header>
-    <nav class="navbar navbar-expand-lg p-3">
-      <div class="container-fluid">
-        <!-- Marca com logo e título -->
-        <a class="navbar-brand" href="../index.html">
-          <img src="../img/aranha.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top me-2">
-          Contatos
-        </a>
-
-        <!-- Botão para colapsar menu em telas pequenas -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Menu colapsável -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-  <a class="btn btn-outline-light" href="pages/produtos.html" tabindex="0">Ver produtos</a>
-</li>
-              <li class="nav-item dropdown">
-              <div class="btn-group">
-                <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" 
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Mais opções
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href"">em breve filmes</a></li>
-                  <li><a class="dropdown-item" href="">em breve jogos</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">Em breve</a></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-          <!-- Formulário de busca -->
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
-            <button class="btn btn-outline-light" type="submit">Buscar</button>
-          </form>
-        </div>
-      </div>
-    </nav>
+    
   </header>
 
   <!-- Conteúdo principal da página -->
   <main>
-    <section class="spiderman-section">
-      <h1 style="font-family: 'Bangers', cursive; font-size: 3rem;">
-        Confira os contatos do Universo Homem-Aranha!
-      </h1>
-      <p>Em breve, novidades incríveis para você colecionar.</p>
-      <ul class="contact-list">
-        <li><strong>WhatsApp:</strong> <a href="https://wa.me/5583999651822" target="_blank" rel="noopener noreferrer">Enviar mensagem</a></li>
-        <li><strong>Instagram:</strong> <a href="https://instagram.com/euu_gbzinx" target="_blank" rel="noopener noreferrer">@euu_gbzinx</a></li>
-        <li><strong>Email:</strong> <a href="mailto:gabrielferreira1binformatica@gmail.com?subject=Contato&body=Olá,%20tudo%20bem?" target="_blank" rel="noopener noreferrer">Enviar e-mail</a></li>
-      </ul>
+    <section class="contact-section">
+      <div class="container">
+        <h1 class="contact-heading">FALE COM O HOMEM-ARANHA</h1>
+        <p class="contact-subheading">(Ou pelo menos com nossa equipe de heróis do atendimento)</p>
+        
+        <ul class="contact-list">
+          <li class="contact-card">
+            <div class="contact-title">
+              <i class="bi bi-whatsapp contact-icon"></i>
+              <span>WhatsApp</span>
+            </div>
+            <p>Suporte imediato e rápido pelo WhatsApp</p>
+            <a href="https://wa.me/5583999651822" class="contact-link" target="_blank" rel="noopener noreferrer">
+              Enviar mensagem
+              <i class="bi bi-arrow-up-right"></i>
+            </a>
+          </li>
+          
+          <li class="contact-card">
+            <div class="contact-title">
+              <i class="bi bi-instagram contact-icon"></i>
+              <span>Instagram</span>
+            </div>
+            <p>Siga-nos e veja nossas novidades</p>
+            <a href="https://instagram.com/euu_gbzinx" class="contact-link" target="_blank" rel="noopener noreferrer">
+              Enviar mensagem
+              <i class="bi bi-arrow-up-right"></i>
+            </a>
+          </li>
+          
+          <li class="contact-card">
+            <div class="contact-title">
+              <i class="bi bi-envelope contact-icon"></i>
+              <span>Email</span>
+            </div>
+            <p>Envie suas dúvidas e sugestões</p>
+            <a href="mailto:gabrielferreira1binformatica@gmail.com?subject=Contato%20Universo%20Homem-Aranha&body=Olá,%20gostaria%20de%20mais%20informações%20sobre..." 
+               class="contact-link" target="_blank" rel="noopener noreferrer">
+              Enviar e-mail
+              <i class="bi bi-arrow-up-right"></i>
+            </a>
+          </li>
+          
+  <li class="contact-card" style="flex: 1;">
+    <div class="contact-title">
+      <i class="bi bi-github contact-icon"></i>
+      <span>Git</span>
+    </div>
+    <p>Confira meus projetos e contribuições no Git</p>
+    <a href="https://github.com/pauloegabriel" 
+       class="contact-link" target="_blank" rel="noopener noreferrer" 
+       aria-label="Acessar perfil Git">
+      Ver Git
+      <i class="bi bi-arrow-up-right"></i>
+    </a>
+  </li>
+        </ul>
+      </div>
     </section>
-    <div class="powr-comments" id="5cdb5f81_1749135175"></div><script src="https://www.powr.io/powr.js?platform=html"></script>
+    <a href="../index.html" style="position: absolute; top: 20px; left: 20px; color: rgb(255, 255, 255); text-decoration: none; font-size: 1.2rem;">
+    ⬅ Voltar
+  </a>
+    
+    <!-- Seção de comentários -->
+    <section class="comments-section">
+      <div class="container">
+        <h2 class="text-center mb-4" style="font-family: 'Bangers', cursive; color: var(--accent-color);">O QUE OS FÃS ESTÃO DIZENDO</h2>
+        <div class="comments-container">
+          <div class="powr-comments" id="5cdb5f81_1749135175"></div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Rodapé simples com borda superior -->
-  <footer class="text-center p-3" style="background-color: #0A1F44; color: white; border-top: 4px solid #D00000;">
-    &copy; 2025 - Universo Homem-Aranha. Todos os direitos reservados.
+  <!-- Rodapé -->
+  <footer class="footer-spider text-center">
+    <div class="container" style="position: relative;">
+      <div class="social-links mb-4">
+        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+      </div>
+      
+      <div class="mb-3">
+        <a href="#" class="text-white mx-2">Termos de Serviço</a>
+        <a href="#" class="text-white mx-2">Política de Privacidade</a>
+        <a href="#" class="text-white mx-2">FAQ</a>
+      </div>
+      
+      <p class="mb-2">© 2025 Universo Homem-Aranha. Todos os direitos reservados.</p>
+      <p class="small text-muted">Homem-Aranha é uma marca registrada da Marvel Comics. Este é um site fictício para fins educacionais.</p>
+    </div>
   </footer>
 
   <!-- Script do Bootstrap -->
   <script src="../js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Script para animações -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar tooltips
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+      
+      // Carregar widget de comentários
+      if (!document.getElementById('powr-js')) {
+        const script = document.createElement('script');
+        script.id = 'powr-js';
+        script.src = 'https://www.powr.io/powr.js?platform=html';
+        document.body.appendChild(script);
+      }
+      
+      // Efeito de teia ao carregar
+      const headings = document.querySelectorAll('.contact-heading, .contact-subheading');
+      headings.forEach((heading, index) => {
+        heading.style.animationDelay = `${index * 0.2}s`;
+      });
+      
+      // Animar cards ao aparecer na tela
+      const animateOnScroll = () => {
+        const cards = document.querySelectorAll('.contact-card');
+        cards.forEach((card, index) => {
+          const cardPosition = card.getBoundingClientRect().top;
+          const screenPosition = window.innerHeight / 1.3;
+          
+          if (cardPosition < screenPosition) {
+            card.style.animation = `fadeInUp 0.6s ease ${index * 0.1}s both`;
+          }
+        });
+      };
+      
+      // Executar ao carregar e ao scroll
+      animateOnScroll();
+      window.addEventListener('scroll', animateOnScroll);
+    });
+  </script>
 </body>
 </html>

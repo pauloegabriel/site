@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Ultimate do Homem-Aranha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #e63946;
+            --dark-red: #b92534;
+            --blue: #0f3460;
+            --dark-blue: #16213e;
+            --darker-blue: #1a1a2e;
+            --green: #4CAF50;
+            --yellow: #FFD700;
+            --white: #ffffff;
+            --black: #000000;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--darker-blue);
+            color: var(--white);
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(230, 57, 70, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(230, 57, 70, 0.1) 0%, transparent 20%);
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: var(--dark-blue);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--red), var(--blue), var(--red));
+        }
+        
+        h1 {
+            color: var(--red);
+            font-family: 'Bangers', cursive;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0 var(--black);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--red);
+            border-radius: 3px;
+        }
+        
+        h2 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 600px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        button {
+            background-color: var(--blue);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover {
+            background-color: var(--red);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .score {
+            font-size: 2rem;
+            margin: 30px 0;
+            color: var(--yellow);
+            font-weight: 700;
+        }
+        
+        .next-btn, .start-btn, .restart-btn {
+            background-color: var(--red);
+            padding: 15px 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 0 auto;
+            display: block;
+            width: fit-content;
+            border-radius: 50px;
+        }
+        
+        .next-btn:hover, .start-btn:hover, .restart-btn:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .spider-logo {
+            width: 150px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 5px rgba(230, 57, 70, 0.7));
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        #feedback {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 20px 0;
+            min-height: 30px;
+            transition: all 0.3s;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--red), var(--blue));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .question-counter {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--red);
+            opacity: 0;
+        }
+        
+        .result-details {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        
+        .result-message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .perfect {
+            color: var(--yellow);
+        }
+        
+        .good {
+            color: var(--green);
+        }
+        
+        .average {
+            color: var(--red);
+        }
+        
+        .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .timer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--red);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake {
+            animation: shake 0.5s;
+        }
+        
+        .floating-spiders {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .spider {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e63946"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m0 2c4.4 0 8 3.6 8 8 0 1.9-.7 3.6-1.9 5l-2.1-2.1c.6-.9.9-2 .9-3.1 0-3.3-2.7-6-6-6-1.1 0-2.2.3-3.1.9L7 5.9C8.4 4.7 10.1 4 12 4m-5 7c0-1.1.3-2.2.9-3.1L5.9 7C4.7 8.4 4 10.1 4 12c0 1.9.7 3.6 1.9 5l2.1-2.1c-.6-.9-.9-2-.9-3.1m5 5c-1.1 0-2.2-.3-3.1-.9l-2.1 2.1C8.4 19.3 10.1 20 12 20c1.9 0 3.6-.7 5-1.9l-2.1-2.1c-.9.6-2 .9-3.1.9m5-5c0 1.1-.3 2.2-.9 3.1l2.1 2.1c1.2-1.4 1.9-3.1 1.9-5 0-1.9-.7-3.6-1.9-5l-2.1 2.1c.6.9.9 2 .9 3.1z"/></svg>');
+            background-size: contain;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="../index.html" style="position: absolute; top: 20px; left: 20px; color: rgb(255, 255, 255); text-decoration: none; font-size: 1.2rem;">
+    ⬅ Voltar
+  </a>
+    <div class="floating-spiders" id="floating-spiders"></div>
+    
+    <div class="container">
+      <img src="../img/image.png" alt="Homem-Aranha" class="spider-logo" style="width: 275px; height: auto;">
+
+<h1>Quiz Ultimate do Homem-Aranha</h1>
+        
+        <div id="start-screen">
+            <p>Teste seus conhecimentos sobre o Homem-Aranha e prove que você é um verdadeiro fã!</p>
+            <button id="start-btn" class="start-btn">Começar Quiz</button>
+        </div>
+        
+        <div id="quiz-screen" class="hidden">
+            <div class="timer" id="timer">15s</div>
+            <div class="question-counter" id="question-counter">Pergunta 1 de 5</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <div id="feedback"></div>
+            <button id="next-btn" class="next-btn hidden">Próxima Pergunta</button>
+        </div>
+        
+        <div id="result-screen" class="hidden">
+            <h2>Quiz Concluído!</h2>
+            <div class="score" id="score"></div>
+            <div class="result-details">
+                <div class="emoji" id="emoji"></div>
+                <div class="result-message" id="result-message"></div>
+                <div id="result-details"></div>
+            </div>
+            <button id="restart-btn" class="restart-btn">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration"></div>
+
+    <script>
+        const questions = [
+            {
+                question: "Qual é o nome real do Homem-Aranha?",
+                options: ["Tony Stark", "Peter Parker", "Bruce Banner", "Steve Rogers"],
+                answer: 1,
+                fact: "Peter Parker foi mordido por uma aranha radioativa durante uma visita a um laboratório científico."
+            },
+            {
+                question: "Qual foi a primeira aparição do Homem-Aranha nos quadrinhos?",
+                options: ["Amazing Fantasy #15", "The Amazing Spider-Man #1", "Fantastic Four #1", "Marvel Comics #1"],
+                answer: 0,
+                fact: "Amazing Fantasy #15 foi publicado em agosto de 1962 e foi um sucesso imediato, levando à própria série do Homem-Aranha."
+            },
+            {
+                question: "Quem é a namorada mais conhecida do Peter Parker?",
+                options: ["Mary Jane Watson", "Gwen Stacy", "Felicia Hardy", "Betty Brant"],
+                answer: 0,
+                fact: "Mary Jane Watson é famosa por sua frase 'Acertei na loteria, Tiger!' quando conheceu Peter."
+            },
+            {
+                question: "Qual destes NÃO é um vilão do Homem-Aranha?",
+                options: ["Duende Verde", "Doutor Octopus", "Venom", "Magneto"],
+                answer: 3,
+                fact: "Magneto é principalmente um vilão dos X-Men, embora tenha aparecido em algumas histórias com o Homem-Aranha."
+            },
+            {
+                question: "Qual é o lema do Homem-Aranha?",
+                options: [
+                    "Com grandes poderes vêm grandes responsabilidades",
+                    "Um herói nasce",
+                    "Justiça acima de tudo",
+                    "Protegendo os inocentes"
+                ],
+                answer: 0,
+                fact: "Esta frase foi dita pelo Tio Ben e se tornou o princípio orientador de Peter Parker."
+            },
+            {
+                question: "Qual ator NÃO interpretou o Homem-Aranha nos cinemas?",
+                options: ["Tobey Maguire", "Andrew Garfield", "Tom Holland", "Chris Evans"],
+                answer: 3,
+                fact: "Chris Evans interpretou o Capitão América no MCU, mas nunca o Homem-Aranha."
+            },
+            {
+                question: "Qual é o nome do jornal onde Peter Parker trabalha?",
+                options: ["Daily Bugle", "Daily Planet", "The New York Times", "The Daily Globe"],
+                answer: 0,
+                fact: "O Daily Bugle é dirigido por J. Jonah Jameson, que tem uma obsessão em difamar o Homem-Aranha."
+            },
+            {
+                question: "Qual destes trajes alternativos o Homem-Aranha já usou?",
+                options: ["Traje Negro", "Traje de Aço", "Traje Thanos", "Traje de Loki"],
+                answer: 0,
+                fact: "O Traje Negro é na verdade um simbionte alienígena que mais tarde se torna o Venom."
+            },
+            {
+                question: "Qual é o nome do Tio do Peter Parker?",
+                options: ["Ben Parker", "Sam Parker", "Richard Parker", "May Parker"],
+                answer: 0,
+                fact: "O Tio Ben foi morto por um ladrão que Peter poderia ter impedido anteriormente, levando ao seu lema de responsabilidade."
+            },
+            {
+                question: "Em que cidade o Homem-Aranha atua?",
+                options: ["Nova York", "Gotham", "Metropolis", "Star City"],
+                answer: 0,
+                fact: "Nova York é o cenário principal para a maioria das histórias do Homem-Aranha, especialmente Queens onde Peter cresceu."
+            }
+        ];
+
+        // Elementos do DOM
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const feedbackElement = document.getElementById('feedback');
+        const scoreElement = document.getElementById('score');
+        const progressBar = document.getElementById('progress-bar');
+        const questionCounter = document.getElementById('question-counter');
+        const timerElement = document.getElementById('timer');
+        const celebration = document.getElementById('celebration');
+        const emojiElement = document.getElementById('emoji');
+        const resultMessage = document.getElementById('result-message');
+        const resultDetails = document.getElementById('result-details');
+        const floatingSpiders = document.getElementById('floating-spiders');
+
+        // Variáveis do jogo
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+        let timeLeft = 15;
+        let timer;
+        let shuffledQuestions = [];
+        let userAnswers = [];
+
+        // Criar aranhas flutuantes
+        function createFloatingSpiders() {
+            for (let i = 0; i < 10; i++) {
+                const spider = document.createElement('div');
+                spider.classList.add('spider');
+                spider.style.left = `${Math.random() * 100}%`;
+                spider.style.top = `${Math.random() * 100}%`;
+                spider.style.animationDuration = `${10 + Math.random() * 20}s`;
+                spider.style.animationDelay = `${Math.random() * 5}s`;
+                spider.style.opacity = '0';
+                spider.style.width = `${20 + Math.random() * 20}px`;
+                spider.style.height = spider.style.width;
+                floatingSpiders.appendChild(spider);
+                
+                // Tornar visível após um delay
+                setTimeout(() => {
+                    spider.style.opacity = '0.3';
+                }, 100);
+            }
+        }
+
+        // Iniciar o quiz
+        startBtn.addEventListener('click', startQuiz);
+        restartBtn.addEventListener('click', startQuiz);
+
+        function startQuiz() {
+            // Embaralhar perguntas
+            shuffledQuestions = [...questions].sort(() => Math.random() - 0.5).slice(0, 10);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            showQuestion();
+            createFloatingSpiders();
+        }
+
+        // Mostrar pergunta
+        function showQuestion() {
+            const question = shuffledQuestions[currentQuestionIndex];
+            questionElement.textContent = question.question;
+            optionsElement.innerHTML = '';
+            feedbackElement.textContent = '';
+            feedbackElement.style.color = '';
+            nextBtn.classList.add('hidden');
+            
+            // Atualizar contador de perguntas
+            questionCounter.textContent = `Pergunta ${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
+            
+            // Atualizar barra de progresso
+            progressBar.style.width = `${(currentQuestionIndex / shuffledQuestions.length) * 100}%`;
+            
+            // Embaralhar opções
+            const shuffledOptions = [...question.options].sort(() => Math.random() - 0.5);
+            
+            shuffledOptions.forEach((option, index) => {
+                const originalIndex = question.options.indexOf(option);
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.dataset.index = originalIndex;
+                button.addEventListener('click', () => selectOption(originalIndex));
+                optionsElement.appendChild(button);
+            });
+            
+            // Reiniciar timer
+            resetTimer();
+        }
+
+        // Timer
+        function resetTimer() {
+            clearInterval(timer);
+            timeLeft = 15;
+            updateTimerDisplay();
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timeUp();
+                }
+            }, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            timerElement.textContent = `${timeLeft}s`;
+            
+            // Mudar cor quando o tempo estiver acabando
+            if (timeLeft <= 5) {
+                timerElement.classList.add('shake');
+                timerElement.style.backgroundColor = 'var(--red)';
+            } else {
+                timerElement.classList.remove('shake');
+                timerElement.style.backgroundColor = 'var(--blue)';
+            }
+        }
+        
+        function timeUp() {
+            const buttons = optionsElement.querySelectorAll('button');
+            const correctIndex = shuffledQuestions[currentQuestionIndex].answer;
+            
+            buttons.forEach((button, i) => {
+                button.disabled = true;
+                if (parseInt(button.dataset.index) === correctIndex) {
+                    button.style.backgroundColor = 'var(--green)';
+                }
+            });
+            
+            feedbackElement.textContent = "Tempo esgotado!";
+            feedbackElement.style.color = "var(--red)";
+            nextBtn.classList.remove('hidden');
+            
+            // Registrar resposta do usuário como incorreta
+            userAnswers.push({
+                question: shuffledQuestions[currentQuestionIndex].question,
+                userAnswer: null,
+                correctAnswer: shuffledQuestions[currentQuestionIndex].options[correctIndex],
+                isCorrect: false,
+                fact: shuffledQuestions[currentQuestionIndex].fact
+            });
+        }
+
+        // Selecionar opção
+        function selectOption(index) {
+            clearInterval(timer);
+            selectedOption = index;
+            const buttons = optionsElement.querySelectorAll('button');
+            const correctIndex = shuffledQuestions[currentQuestionIndex].answer;
+            
+            buttons.forEach(button => {
+                button.disabled = true;
+                const buttonIndex = parseInt(button.dataset.index);
+                
+                if (buttonIndex === correctIndex) {
+                    button.style.backgroundColor = 'var(--green)';
+                } else if (buttonIndex === index && buttonIndex !== correctIndex) {
+                    button.style.backgroundColor = 'var(--red)';
+                }
+            });
+            
+            const isCorrect = index === correctIndex;
+            
+            if (isCorrect) {
+                score++;
+                feedbackElement.textContent = "Correto!";
+                feedbackElement.style.color = "var(--green)";
+                
+                // Efeito visual para resposta correta
+                questionElement.classList.add('shake');
+                setTimeout(() => {
+                    questionElement.classList.remove('shake');
+                }, 500);
+            } else {
+                feedbackElement.textContent = `Incorreto! A resposta correta é: ${shuffledQuestions[currentQuestionIndex].options[correctIndex]}`;
+                feedbackElement.style.color = "var(--red)";
+            }
+            
+            nextBtn.classList.remove('hidden');
+            
+            // Registrar resposta do usuário
+            userAnswers.push({
+                question: shuffledQuestions[currentQuestionIndex].question,
+                userAnswer: shuffledQuestions[currentQuestionIndex].options[index],
+                correctAnswer: shuffledQuestions[currentQuestionIndex].options[correctIndex],
+                isCorrect: isCorrect,
+                fact: shuffledQuestions[currentQuestionIndex].fact
+            });
+        }
+
+        // Próxima pergunta
+        nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < shuffledQuestions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        });
+
+        // Mostrar resultado
+        function showResult() {
+            clearInterval(timer);
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            
+            // Atualizar barra de progresso para 100%
+            progressBar.style.width = '100%';
+            
+            // Exibir pontuação
+            scoreElement.textContent = `Você acertou ${score} de ${shuffledQuestions.length} perguntas!`;
+            
+            // Determinar mensagem baseada na pontuação
+            let percentage = (score / shuffledQuestions.length) * 100;
+            let message, emoji;
+            
+            if (percentage === 100) {
+                message = "Perfeito! Você é um verdadeiro especialista do Homem-Aranha!";
+                emoji = "🕷️🎉";
+                scoreElement.classList.add('perfect');
+                createConfetti();
+            } else if (percentage >= 70) {
+                message = "Ótimo trabalho! Você conhece bem o Homem-Aranha!";
+                emoji = "👍😊";
+                scoreElement.classList.add('good');
+            } else if (percentage >= 50) {
+                message = "Bom esforço! Você sabe algumas coisas sobre o Homem-Aranha.";
+                emoji = "🤔";
+                scoreElement.classList.add('average');
+            } else {
+                message = "Hmm... Talvez seja hora de assistir alguns filmes ou ler quadrinhos do Homem-Aranha!";
+                emoji = "🕷️📚";
+            }
+            
+            emojiElement.textContent = emoji;
+            resultMessage.textContent = message;
+            
+            // Mostrar detalhes das respostas
+            let detailsHTML = '<h3>Detalhes das Respostas:</h3><ul style="list-style-type: none; text-align: left;">';
+            
+            userAnswers.forEach((answer, index) => {
+                detailsHTML += `
+                    <li style="margin-bottom: 15px; padding: 10px; background-color: rgba(0, 0, 0, 0.1); border-radius: 5px;">
+                        <strong>Pergunta ${index + 1}:</strong> ${answer.question}<br>
+                        <span style="color: ${answer.isCorrect ? 'var(--green)' : 'var(--red)'}">
+                            ${answer.isCorrect ? '✅' : '❌'} 
+                            Sua resposta: ${answer.userAnswer || 'Nenhuma (tempo esgotado)'}<br>
+                            Resposta correta: ${answer.correctAnswer}
+                        </span><br>
+                        <em style="color: rgba(255, 255, 255, 0.7); display: block; margin-top: 5px;">${answer.fact}</em>
+                    </li>
+                `;
+            });
+            
+            detailsHTML += '</ul>';
+            resultDetails.innerHTML = detailsHTML;
+        }
+
+        // Criar efeito de confete
+        function createConfetti() {
+            celebration.style.opacity = '1';
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Posição aleatória
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.top = `${Math.random() * 100}%`;
+                
+                // Tamanho aleatório
+                const size = Math.random() * 10 + 5;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                
+                // Cor aleatória
+                const colors = ['#e63946', '#f1faee', '#a8dadc', '#457b9d', '#1d3557', '#ffd166', '#06d6a0'];
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Animação
+                confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                
+                celebration.appendChild(confetti);
+                
+                // Tornar visível
+                setTimeout(() => {
+                    confetti.style.opacity = '1';
+                }, 10);
+                
+                // Remover após animação
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+            
+            setTimeout(() => {
+                celebration.style.opacity = '0';
+                setTimeout(() => {
+                    celebration.innerHTML = '';
+                }, 500);
+            }, 3000);
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            // Adicionar estilos dinâmicos para a animação de confete
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fall {
+                    to {
+                        transform: translateY(100vh) rotate(360deg);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

@@ -1,221 +1,333 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Homem-Aranha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Loja oficial de produtos do Homem-Aranha - HQs, camisetas, action figures e mais">
+  <meta name="keywords" content="Homem-Aranha, Marvel, quadrinhos, camisetas, colecionáveis">
+  <title>Homem-Aranha | Loja Oficial</title>
 
+  <!-- Favicon e ícones -->
   <link rel="icon" type="image/png" href="img/aranha.png" />
+  <link rel="apple-touch-icon" href="img/aranha.png">
+
+  <!-- Pré-carregamento de recursos críticos -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" as="style">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" as="style">
+
+  <!-- CDNs -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet" />
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <!-- CSS local -->
   <style>
-    /* Reset básico */
-    html, body {
-      height: 100%;
+    :root {
+      --primary-color: #D00000;
+      --secondary-color: #0A1F44;
+      --accent-color: #FF4E50;
+      --text-light: #FFFFFF;
+      --text-dark: #212529;
+      --success-color: #28A745;
+      --warning-color: #FFC107;
+      --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Reset e Base */
+    * {
       margin: 0;
-      background-color: #0A1F44;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      background-color: var(--secondary-color);
+      color: var(--text-light);
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    /* Navbar */
-    header nav {
-      background-color: #D00000;
-      box-shadow: 0 4px 8px rgba(208, 0, 0, 0.7);
-      padding: 0.7rem 0;
-    }
-    
-    .navbar-brand {
-      color: #fff;
+    /* Tipografia */
+    h1, h2, h3, h4, h5, h6 {
       font-family: 'Bangers', cursive;
-      font-size: 2rem;
-      letter-spacing: 2px;
-      user-select: none;
-    }
-    
-    .navbar-brand img {
-      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
-    }
-    
-    .navbar-nav .nav-link,
-    .btn-outline-light {
-      color: #fff;
-      font-weight: 600;
-      transition: color 0.3s ease, background-color 0.3s ease;
-      border-radius: 0.375rem;
-    }
-    
-    .navbar-nav .nav-link:hover,
-    .btn-outline-light:hover,
-    .dropdown-toggle.btn-outline-light:hover {
-      color: #D00000;
-      background-color: #fff;
-    }
-    
-    .btn-group .dropdown-menu {
-      background-color: #0A1F44;
-      border: 1px solid #D00000;
-    }
-    
-    .dropdown-item {
-      color: #fff;
-      transition: background-color 0.2s ease;
-    }
-    
-    .dropdown-item:hover {
-      background-color: #D00000;
-      color: #fff;
-    }
-    
-    .dropdown-item.disabled {
-      color: #666 !important;
-    }
-    
-    #search-input {
-      max-width: 180px;
-    }
-    
-    #category-filter {
-      background-color: #0A1F44;
-      border: 1px solid #fff;
-      color: #fff;
-      font-weight: 600;
-      max-width: 140px;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-    
-    #category-filter:hover,
-    #category-filter:focus {
-      background-color: #D00000;
-      border-color: #D00000;
-      color: #fff;
-      outline: none;
-      box-shadow: 0 0 5px #D00000;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
     }
 
-    /* Carrossel */
-    #carouselExampleCaptions {
+    /* Componentes reutilizáveis */
+    .btn-spider {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: var(--transition-base);
       position: relative;
-      height: 70vh;
-      max-height: 600px;
       overflow: hidden;
     }
-    
-    .carousel-inner img {
-      object-fit: cover;
-      height: 70vh;
-      max-height: 600px;
-      filter: brightness(0.6);
-      transition: filter 0.3s ease;
-    }
-    
-    .carousel-item.active img {
-      filter: brightness(0.6);
-    }
-    
-    .carousel-caption {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 1.2rem 2rem;
-      border-radius: 0.5rem;
-      max-width: 500px;
-      margin-bottom: 3rem;
-      text-align: left;
-      color: #fff;
-      user-select: none;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-    
-    .carousel-caption h5 {
-      font-size: 2rem;
-      font-family: 'Bangers', cursive;
-      margin-bottom: 0.4rem;
-      text-shadow: 2px 2px 6px #000;
-    }
-    
-    .carousel-caption p {
-      font-size: 1.1rem;
-      text-shadow: 1px 1px 3px #000;
-    }
-    
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.8));
+
+    .btn-spider:hover {
+      background-color: #b30000;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(208, 0, 0, 0.3);
     }
 
-    /* Produtos */
-    #products {
-      margin-top: 3rem;
-      padding: 0 1rem 3rem;
+    .btn-spider::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
     }
-    
-    article .card {
-      background: linear-gradient(135deg, rgba(208,0,0,0.85), rgba(10,31,68,0.85));
+
+    .btn-spider:hover::after {
+      left: 100%;
+    }
+
+    /* Navbar melhorada */
+    .navbar-spider {
+      background-color: var(--primary-color);
+      box-shadow: 0 4px 12px rgba(208, 0, 0, 0.4);
+      padding: 0.75rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .navbar-brand img {
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-brand:hover img {
+      transform: rotate(15deg);
+    }
+
+    /* Carrossel melhorado */
+    .carousel-spider {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 3rem;
+    }
+
+    .carousel-spider .carousel-item {
+      height: 70vh;
+      min-height: 500px;
+      max-height: 800px;
+    }
+
+    .carousel-spider img {
+      object-fit: cover;
+      height: 100%;
+      filter: brightness(0.7);
+      transition: filter 0.5s ease;
+    }
+
+    .carousel-spider .carousel-item:hover img {
+      filter: brightness(0.5);
+    }
+
+    .carousel-caption {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      padding: 2rem;
+      border-radius: 0.5rem;
+      bottom: 20%;
+      left: 10%;
+      right: auto;
+      max-width: 500px;
+      text-align: left;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Cards de produtos melhorados */
+    .product-card {
+      background: linear-gradient(145deg, rgba(208,0,0,0.9), rgba(10,31,68,0.9));
+      border: none;
       border-radius: 1rem;
-      border: 2px solid #D00000;
-      box-shadow: 0 6px 15px rgba(208,0,0,0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
+      overflow: hidden;
+      transition: var(--transition-base);
       height: 100%;
       display: flex;
       flex-direction: column;
-      color: #fff;
+      box-shadow: 0 6px 15px rgba(208, 0, 0, 0.3);
+      position: relative;
     }
-    
-    article .card:hover {
-      transform: scale(1.07);
-      box-shadow: 0 10px 25px rgba(255,0,0,0.8);
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
     }
-    
-    .card-img-top {
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(255, 0, 0, 0.5);
+    }
+
+    .product-card .card-img-top {
+      padding: 1.5rem;
+      background-color: rgba(10, 31, 68, 0.8);
       object-fit: contain;
-      max-height: 200px;
-      padding: 1rem;
-      background-color: #0A1F44;
+      height: 250px;
     }
-    
-    .card-body {
+
+    .product-card .card-body {
+      padding: 1.5rem;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
-    
-    .card-title {
-      font-family: 'Bangers', cursive;
-      font-size: 1.4rem;
-      margin-bottom: 0.5rem;
-      color: #FF4E50;
-      text-shadow: 1px 1px 4px #000;
+
+    .product-card .card-title {
+      color: var(--accent-color);
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
-    
+
+    .product-card .price {
+      margin-top: auto;
+    }
+
     .price-old {
       text-decoration: line-through;
-      color: #ddd;
+      color: #ccc;
+      font-size: 0.9rem;
     }
-    
+
     .price-new {
+      font-size: 1.3rem;
       font-weight: 700;
-      color: rgb(2, 182, 2);
+      color: var(--success-color);
     }
 
-    /* Main expande para ocupar espaço */
-    main {
-      flex-grow: 1;
+    .badge-discount {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: var(--success-color);
+      font-size: 0.9rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 50rem;
+      z-index: 1;
     }
 
-    /* Rodapé */
-    footer {
-      background-color: #0A1F44;
-      color: #fff;
-      border-top: 4px solid #D00000;
-      text-align: center;
-      padding: 1rem;
+    /* Footer melhorado */
+    .footer-spider {
+      background: linear-gradient(to right, var(--secondary-color), #0A1F66);
+      border-top: 4px solid var(--primary-color);
+      padding: 2rem 0;
+      margin-top: auto;
+    }
+
+    .footer-spider .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-spider .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: var(--transition-base);
+    }
+
+    .footer-spider .social-links a:hover {
+      color: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    /* Toast notifications */
+    #toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1100;
+    }
+
+    .toast {
+      transition: opacity 0.3s ease;
+    }
+
+    /* Responsividade */
+    @media (max-width: 992px) {
+      .carousel-spider .carousel-caption {
+        max-width: 80%;
+        bottom: 10%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-brand {
+        font-size: 1.5rem;
+      }
+      
+      .carousel-spider .carousel-item {
+        height: 50vh;
+        min-height: 400px;
+      }
+      
+      .carousel-caption h5 {
+        font-size: 1.5rem;
+      }
+      
+      .carousel-caption p {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .carousel-spider .carousel-caption {
+        padding: 1rem;
+        bottom: 5%;
+        left: 5%;
+        right: 5%;
+        max-width: 90%;
+      }
+      
+      .product-card .card-img-top {
+        height: 200px;
+      }
     }
   </style>
 </head>
@@ -223,60 +335,81 @@
 <body>
   <!-- Cabeçalho com menu de navegação -->
   <header>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg navbar-spider" aria-label="Navegação principal">
       <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="Home - Homem-Aranha">
-          <img src="img/aranha.png" alt="Logo Homem-Aranha" width="30" height="30" class="me-2" loading="lazy" />
-          Homem-Aranha
+        <a class="navbar-brand" href="index.html">
+          <img src="img/aranha.png" alt="" width="30" height="30" class="d-inline-block align-top" aria-hidden="true">
+          <span>Homem-Aranha</span>
         </a>
 
-        <button class="navbar-toggler text-white" type="button" 
+        <button class="navbar-toggler" type="button" 
                 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" 
-                aria-label="Toggle navigation">
+                aria-label="Alternar navegação">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center gap-2">
-           <li class="nav-item">
-  <a class="btn btn-outline-light" href="pages/produtos.html" tabindex="0">Ver produtos</a>
-</li>
- <li class="nav-item">
-  <a class="btn btn-outline-light" href="pages/contatos.html" tabindex="0">Fale conosco</a>
-</li>
-
-            <li class="nav-item dropdown">
-              <div class="btn-group">
-                <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" 
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Mais opções
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href"">em breve filmes</a></li>
-                  <li><a class="dropdown-item" href="">em breve jogos</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">Em breve</a></li>
-                </ul>
-              </div>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="menubar">
+            <li class="nav-item" role="none">
+              <a class="nav-link active" href="../pages/JOGO.HTML" role="menuitem">JOGO</a>
+            </li>
+            <li class="nav-item" role="none">
+              <a class="nav-link" href="../pages/produtos.html" role="menuitem">Produtos</a>
+            </li>
+            <li class="nav-item" role="none">
+              <a class="nav-link" href="../pages/contatos.html" role="menuitem">Contato</a>
+            </li>
+            <li class="nav-item dropdown" role="none">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="menuitem" 
+                 data-bs-toggle="dropdown" aria-expanded="false">
+                Mais
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Filmes</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item disabled" href="#">Em breve</a></li>
+              </ul>
             </li>
           </ul>
 
-          <form id="search-form" class="d-flex me-2" role="search" onsubmit="return false;" style="gap: 8px;">
-            <input id="search-input" class="form-control form-control-sm me-2"
-                   type="search" placeholder="Buscar..."
-                   aria-label="Buscar produtos"
-                   style="background-color: white; color: black; border: 1px solid #ccc;" />
-            <select id="category-filter" class="form-select form-select-sm"
-                    aria-label="Filtrar por categoria"
-                    style="background-color: white; color: black; border: 1px solid #ccc;">
-              <option value="all" selected style="color: black;">categorias</option>
-              <option value="hq" style="color: black;">HQs</option>
-              <option value="garrafa" style="color: black;">Garrafas</option>
-              <option value="camiseta" style="color: black;">Camisetas</option>
-              <option value="filme" style="color: black;">Filmes</option>
-            </select>
-          </form>
+       <form id="search-form" class="d-flex me-2" role="search">
+  <div class="input-group">
+    <input id="search-input" class="form-control form-control-sm" 
+           type="search" placeholder="Buscar produtos..."
+           aria-label="Buscar produtos"
+           style="color: white; background-color: transparent; border-color: white;">
+    
+    <select id="category-filter" class="form-select form-select-sm"
+            aria-label="Filtrar por categoria"
+            style="color: white; background-color: transparent; border-color: white;">
+      <option value="all" selected style="color: black;">Todas categorias</option>
+      <option value="hq" style="color: black;">HQs</option>
+      <option value="garrafa" style="color: black;">Garrafas</option>
+      <option value="camiseta" style="color: black;">Camisetas</option>
+      <option value="filme" style="color: black;">Filmes</option>
+    </select>
+    
+    <button class="btn btn-spider btn-sm" type="submit">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+</form>
+
+
+          <div class="d-flex align-items-center gap-2">
+            <a href="#" class="btn btn-spider btn-sm position-relative">
+              <i class="bi bi-cart-fill"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                3
+              </span>
+            </a>
+
+            <!--jaja linkar algo pra botao perfil-->
+            <a href="" class="btn btn-outline-light btn-sm">
+              <i class="bi bi-person-fill"></i>
+            </a>
+          </div>
         </div>
       </div>
     </nav>
@@ -285,174 +418,411 @@
   <!-- Main com carrossel e produtos -->
   <main class="container my-4">
     <!-- Carrossel -->
-    <div id="carouselExampleCaptions" class="carousel slide mb-5" data-bs-ride="carousel" 
-         aria-label="Carrossel de imagens Homem-Aranha">
+    <div id="mainCarousel" class="carousel slide carousel-spider mb-5" data-bs-ride="carousel" 
+         aria-label="Carrossel de destaques">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" 
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" 
                 class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" 
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" 
                 aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" 
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2" 
                 aria-label="Slide 3"></button>
       </div>
+       <!-- Carrossel 1-->
       <div class="carousel-inner rounded">
-        <div class="carousel-item active" data-bs-interval="4000">
+        <div class="carousel-item active" data-bs-interval="5000">
           <img src="img/CARROSEL/carrosel3.png" class="d-block w-100" 
-               alt="Imagem aventura sem limites do Homem-Aranha" loading="lazy" />
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Aventura sem limites!</h5>
-            <p>Descubra os melhores momentos do Homem-Aranha no universo dos filmes.</p>
-          </div>
+               alt="Homem-Aranha em ação em Nova York" loading="lazy" />
+         <div class="carousel-caption d-none d-md-block">
+  <h2 style="color: white;">Aventura sem limites!</h2>
+  <p style="color: white;">Descubra os melhores momentos do Homem-Aranha no universo dos filmes.</p>
+  <a href="#" class="btn btn-spider mt-2">Explorar</a>
+</div>
+  <!-- Carrossel 2-->
         </div>
-        <div class="carousel-item" data-bs-interval="4000">
+        <div class="carousel-item" data-bs-interval="5000">
           <img src="img/CARROSEL/carrosel1.png" class="d-block w-100" 
-               alt="Imagem heróis e vilões do Homem-Aranha" loading="lazy" />
+               alt="Homem-Aranha enfrentando vilões" loading="lazy" />
           <div class="carousel-caption d-none d-md-block">
-            <h5>Heróis e Vilões</h5>
-            <p>Enfrentando os maiores desafios para proteger Nova York.</p>
-          </div>
+  <h2 style="color: white;">Heróis e Vilões</h2>
+  <p style="color: white;">Enfrentando os maiores desafios para proteger Nova York.</p>
+  <a href="#" class="btn btn-spider mt-2">Ver coleção</a>
+</div>
+ <!-- Carrossel 3-->
         </div>
-        <div class="carousel-item" data-bs-interval="4000">
+        <div class="carousel-item" data-bs-interval="5000">
           <img src="img/CARROSEL/carrosel2.png" class="d-block w-100" 
-               alt="Imagem multiverso do Homem-Aranha" loading="lazy" />
+               alt="Diferentes versões do Homem-Aranha" loading="lazy" />
           <div class="carousel-caption d-none d-md-block">
-            <h5>Multiverso Aranha</h5>
-            <p>Explore todas as versões do herói que conquistou gerações.</p>
-          </div>
+  <h2 style="color: white;">Multiverso Aranha</h2>
+  <p style="color: white;">Explore todas as versões do herói que conquistou gerações.</p>
+  <a href="#" class="btn btn-spider mt-2">Conhecer</a>
+</div>
+
         </div>
       </div>
       <button class="carousel-control-prev" type="button" 
-              data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" 
-              aria-label="Slide anterior">
+              data-bs-target="#mainCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
       </button>
       <button class="carousel-control-next" type="button" 
-              data-bs-target="#carouselExampleCaptions" data-bs-slide="next" 
-              aria-label="Próximo slide">
+              data-bs-target="#mainCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Próximo</span>
       </button>
     </div>
 
-    <!-- Produtos -->
-    <section id="products" class="row row-cols-1 row-cols-md-3 g-4" 
-             aria-live="polite" aria-atomic="true" aria-relevant="additions removals">
+    <!-- Seção de Destaques -->
+    <section class="mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Produtos em Destaque</h2>
+        <a href="pages/produtos.html" class="btn btn-outline-light">Ver todos</a>
+      </div>
       
-      <!-- Produto 1: HQ -->
-      <article class="col" data-category="hq" data-title="HQ: Partindo Pro Ataque Vol. 117">
-        <a href="pages/hq.html" class="text-decoration-none text-reset" tabindex="0">
-          <div class="card h-100">
+      <!-- Produtos -->
+      <div id="products" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <!-- Produto 1: HQ -->
+        <article class="col" data-category="hq" data-title="HQ: Partindo Pro Ataque Vol. 117">
+          <div class="card product-card h-100">
+            <span class="badge-discount">50% OFF</span>
             <img src="img/PRODUTOS/produto1.png" class="card-img-top" 
-                 alt="HQ Homem-Aranha" loading="lazy" />
-            <div class="card-body d-flex flex-column justify-content-between">
-              <h4 class="card-title">HQ: Partindo Pro Ataque Vol. 117</h4>
-              <p><del class="price-old">R$ 69,90</del> <span class="price-new">R$ 34,90</span></p>
-              <p class="card-text">Uma edição imperdível para fãs do Aracnídeo! Ação e emoção garantidas.</p>
+                 alt="Capa da HQ Homem-Aranha: Partindo Pro Ataque Volume 117" 
+                 loading="lazy" width="300" height="400">
+            <div class="card-body">
+              <h3 class="card-title">HQ: Partindo Pro Ataque Vol. 117</h3>
+              <p class="card-text">Uma edição imperdível para fãs do Aracnídeo! Nesta aventura emocionante, o Homem-Aranha enfrenta seu maior desafio.</p>
+              <div class="price mt-auto pt-2">
+                <del class="price-old">R$ 69,90</del> 
+                <span class="price-new">R$ 34,90</span>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+              <button class="btn btn-spider w-100" onclick="addToCart('HQ: Partindo Pro Ataque Vol. 117')">
+                <i class="bi bi-cart-plus me-2"></i>Adicionar
+              </button>
             </div>
           </div>
-        </a>
-      </article>
+        </article>
 
-      <!-- Produto 2: Garrafa -->
-      <article class="col" data-category="garrafa" data-title="Garrafa Squeeze Aranha 500ml">
-        <a href="pages/squeeze.html" class="text-decoration-none text-reset" tabindex="0">
-          <div class="card h-100">
+        <!-- Produto 2: Garrafa -->
+        <article class="col" data-category="garrafa" data-title="Garrafa Squeeze Aranha 500ml">
+          <div class="card product-card h-100">
+            <span class="badge-discount">38% OFF</span>
             <img src="img/PRODUTOS/produto2.png" class="card-img-top" 
-                 alt="Garrafa Homem-Aranha" loading="lazy" />
-            <div class="card-body d-flex flex-column justify-content-between">
-              <h4 class="card-title">Garrafa Squeeze Aranha 500ml</h4>
-              <p><del class="price-old">R$ 39,99</del> <span class="price-new">R$ 24,90</span></p>
-              <p class="card-text">Prática, resistente e estilosa. Leve seu herói favorito com você!</p>
+                 alt="Garrafa Squeeze do Homem-Aranha 500ml" 
+                 loading="lazy" width="300" height="400">
+            <div class="card-body">
+              <h3 class="card-title">Garrafa Squeeze Aranha 500ml</h3>
+              <p class="card-text">Prática, resistente e estilosa. Leve seu herói favorito para todas as aventuras do dia a dia!</p>
+              <div class="price mt-auto pt-2">
+                <del class="price-old">R$ 39,99</del> 
+                <span class="price-new">R$ 24,90</span>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+              <button class="btn btn-spider w-100" onclick="addToCart('Garrafa Squeeze Aranha 500ml')">
+                <i class="bi bi-cart-plus me-2"></i>Adicionar
+              </button>
             </div>
           </div>
-        </a>
-      </article>
+        </article>
 
-      <!-- Produto 3: Camiseta -->
-      <article class="col" data-category="camiseta" data-title="Camiseta Oficial 100% Algodão">
-        <a href="pages/camisetas.html" class="text-decoration-none text-reset" tabindex="0">
-          <div class="card h-100">
+        <!-- Produto 3: Camiseta -->
+        <article class="col" data-category="camiseta" data-title="Camiseta Oficial 100% Algodão">
+          <div class="card product-card h-100">
+            <span class="badge-discount">50% OFF</span>
             <img src="img/PRODUTOS/produto3.png" class="card-img-top" 
-                 alt="Camiseta Homem-Aranha" loading="lazy" />
-            <div class="card-body d-flex flex-column justify-content-between">
-              <h4 class="card-title">Camiseta Oficial 100% Algodão</h4>
-              <p><del class="price-old">R$ 59,90</del> <span class="price-new">R$ 29,90</span></p>
-              <p class="card-text">Confortável e estilosa para mostrar que você é fã de verdade!</p>
+                 alt="Camiseta Oficial do Homem-Aranha 100% Algodão" 
+                 loading="lazy" width="300" height="400">
+            <div class="card-body">
+              <h3 class="card-title">Camiseta Oficial 100% Algodão</h3>
+              <p class="card-text">Confortável e estilosa, disponível em vários tamanhos. Mostre ao mundo que você é fã de verdade!</p>
+              <div class="price mt-auto pt-2">
+                <del class="price-old">R$ 59,90</del> 
+                <span class="price-new">R$ 29,90</span>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+              <button class="btn btn-spider w-100" onclick="addToCart('Camiseta Oficial 100% Algodão')">
+                <i class="bi bi-cart-plus me-2"></i>Adicionar
+              </button>
             </div>
           </div>
-        </a>
-      </article>
+        </article>
+      </div>
+    </section>
+
+    <!-- Seção de Newsletter -->
+    <section class="bg-dark rounded-3 p-4 p-md-5 mb-5">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <h3 class="mb-2">Assine nossa Newsletter</h3>
+          <p class="mb-0">Receba novidades, promoções exclusivas e conteúdos especiais do Homem-Aranha!</p>
+        </div>
+        <div class="col-md-6">
+          <form class="row g-2">
+            <div class="col-8">
+              <input type="email" class="form-control" placeholder="Seu melhor e-mail" required>
+            </div>
+            <div class="col-4">
+              <button type="submit" class="btn btn-spider w-100">Assinar</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </section>
   </main>
 
   <!-- Rodapé -->
-  <footer>
-    <div class="container">     
-      <p class="mb-0">© Este é um site fictício para fins educacionais</p>
+  <footer class="footer-spider">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h3 class="mb-3">Homem-Aranha</h3>
+          <p>A loja oficial dos produtos do seu herói favorito. Qualidade e autenticidade garantidas.</p>
+          <div class="social-links">
+            <!-- Redes sociais com ícones do Bootstrap Icons -->
+
+</a>
+<a href="https://instagram.com/euu_gbzinx" target="_blank" rel="noopener noreferrer"l" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+  <i class="bi bi-instagram"></i>
+</a>
+
+</a>
+<a href="https://wa.me/5583999651822"target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+  <i class="bi bi-whatsapp"></i>
+</a>
+
+</a>
+<a href="https://github.com/pauloegabriel" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+  <i class="bi bi-github"></i>
+</a>
+
+
+
+          </div>
+        </div>
+        
+        <div class="col-md-2 mb-4 mb-md-0">
+          <h4 class="mb-3">Links</h4>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="index.html" class="text-white">Home</a></li>
+            <li class="mb-2"><a href="pages/produtos.html" class="text-white">Produtos</a></li>
+            <li class="mb-2"><a href="pages/contatos.html" class="text-white">Contato</a></li>
+            <li class="mb-2"><a href="#" class="text-white">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-md-3 mb-4 mb-md-0">
+          <h4 class="mb-3">Ajuda</h4>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="#" class="text-white">Perguntas Frequentes</a></li>
+            <li class="mb-2"><a href="#" class="text-white">Política de Entrega</a></li>
+            <li class="mb-2"><a href="#" class="text-white">Trocas e Devoluções</a></li>
+            <li class="mb-2"><a href="#" class="text-white">Termos de Serviço</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-md-3">
+          <h4 class="mb-3">Pagamento</h4>
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            
+          </div>
+          <h4 class="mb-3">Atendimento</h4>
+          <p><i class="bi bi-envelope me-2"></i> contato@homemaranha.com</p>
+          <p><i class="bi bi-telephone me-2"></i> (83) 99965-1822</p>
+        </div>
+      </div>
+      
+      <hr class="my-4">
+      
+      <div class="row">
+        <div class="col-md-6 text-center text-md-start">
+          <p class="mb-0">© 2023 Loja Homem-Aranha. Todos os direitos reservados.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <p class="mb-0">
+            <a href="#" class="text-white me-3">Política de Privacidade</a>
+            <a href="#" class="text-white">Termos de Uso</a>
+          </p>
+        </div>
+      </div>
+      
+      <div class="text-center mt-3">
+        <p class="small text-muted">Este é um site fictício para fins educacionais. Homem-Aranha é propriedade da Marvel Comics.</p>
+      </div>
     </div>
   </footer>
+
+  <!-- Container para notificações -->
+  <div id="toast-container"></div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Sistema de filtragem de produtos
     document.addEventListener('DOMContentLoaded', function() {
       const searchInput = document.getElementById('search-input');
       const categoryFilter = document.getElementById('category-filter');
-      const carousel = document.getElementById('carouselExampleCaptions');
+      const searchForm = document.getElementById('search-form');
       const productsContainer = document.getElementById('products');
-      const products = productsContainer.querySelectorAll('article');
+      const products = Array.from(productsContainer.querySelectorAll('article'));
       
+      // Função para filtrar produtos
       function filterProducts() {
-        const searchTerm = searchInput.value.toLowerCase();
+        const searchTerm = searchInput.value.trim().toLowerCase();
         const category = categoryFilter.value;
-        let found = false;
+        let hasResults = false;
         
         products.forEach(article => {
           const title = article.getAttribute('data-title').toLowerCase();
+          const desc = article.querySelector('.card-text').textContent.toLowerCase();
           const articleCategory = article.getAttribute('data-category');
           
-          const matchesSearch = title.includes(searchTerm);
+          const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
           const matchesCategory = category === 'all' || articleCategory === category;
           
           if (matchesSearch && matchesCategory) {
-            article.style.display = '';
-            found = true;
+            article.style.display = 'block';
+            hasResults = true;
           } else {
             article.style.display = 'none';
           }
         });
 
-        if (found) {
-          carousel.style.display = 'none';
-          productsContainer.style.display = 'flex';
-          productsContainer.style.justifyContent = 'center';
-          productsContainer.style.alignItems = 'center';
-          productsContainer.style.minHeight = '60vh';
-          productsContainer.style.flexWrap = 'nowrap';
+        // Mostrar mensagem se não houver resultados
+        if ((searchTerm || category !== 'all') && !hasResults) {
+          showNoResultsMessage();
         } else {
-          carousel.style.display = 'none';
-          productsContainer.style.display = '';
-          productsContainer.style.justifyContent = '';
-          productsContainer.style.alignItems = '';
-          productsContainer.style.minHeight = '';
-          productsContainer.style.flexWrap = '';
-
-          if (searchTerm) alert("Nenhum produto encontrado com esse nome.");
-        }
-
-        if (searchTerm === '' && category === 'all') {
-          products.forEach(article => article.style.display = '');
-          carousel.style.display = '';
-          productsContainer.style.display = '';
-          productsContainer.style.justifyContent = '';
-          productsContainer.style.alignItems = '';
-          productsContainer.style.minHeight = '';
-          productsContainer.style.flexWrap = '';
+          removeNoResultsMessage();
         }
       }
       
-      searchInput.addEventListener('input', filterProducts);
+      // Mostrar mensagem de nenhum resultado
+      function showNoResultsMessage() {
+        if (!document.getElementById('no-results')) {
+          const message = document.createElement('div');
+          message.id = 'no-results';
+          message.className = 'col-12 text-center py-5';
+          message.innerHTML = `
+            <div class="alert alert-warning">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              Nenhum produto encontrado. Tente alterar sua busca.
+            </div>
+            <button class="btn btn-spider mt-3" onclick="resetSearch()">
+              Limpar busca
+            </button>
+          `;
+          productsContainer.appendChild(message);
+        }
+      }
+      
+      // Remover mensagem de nenhum resultado
+      function removeNoResultsMessage() {
+        const message = document.getElementById('no-results');
+        if (message) message.remove();
+      }
+      
+      // Event listeners
+      searchInput.addEventListener('input', function() {
+        clearTimeout(this.searchTimeout);
+        this.searchTimeout = setTimeout(filterProducts, 300);
+      });
+      
       categoryFilter.addEventListener('change', filterProducts);
+      
+      // Prevenir submit do formulário
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        filterProducts();
+      });
+      
+      // Inicializar tooltips
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
     });
+    
+    // Função global para resetar busca
+    window.resetSearch = function() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('category-filter').value = 'all';
+      document.querySelectorAll('#products article').forEach(el => {
+        el.style.display = 'block';
+      });
+      removeNoResultsMessage();
+      document.getElementById('search-input').focus();
+    };
+    
+    // Função para adicionar ao carrinho
+    function addToCart(productName) {
+      showNotification(`${productName} adicionado ao carrinho!`, 'success');
+      
+      // Atualizar contador do carrinho (simulação)
+      const cartBadge = document.querySelector('.navbar .badge');
+      if (cartBadge) {
+        const currentCount = parseInt(cartBadge.textContent) || 0;
+        cartBadge.textContent = currentCount + 1;
+      }
+    }
+    
+    // Sistema de notificações Toast
+    function showNotification(message, type = 'success') {
+      const toastContainer = document.getElementById('toast-container') || createToastContainer();
+      const toast = document.createElement('div');
+      
+      toast.className = `toast show align-items-center text-white bg-${type} border-0`;
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
+      toast.setAttribute('aria-atomic', 'true');
+      toast.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">
+            <i class="bi ${type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'} me-2"></i>
+            ${message}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
+        </div>
+      `;
+      
+      toastContainer.appendChild(toast);
+      
+      // Remove automaticamente após 5 segundos
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
+    }
+    
+    function createToastContainer() {
+      const container = document.createElement('div');
+      container.id = 'toast-container';
+      container.className = 'position-fixed bottom-0 end-0 p-3';
+      container.style.zIndex = '1100';
+      document.body.appendChild(container);
+      return container;
+    }
+    
+    // Animar elementos quando aparecem na tela
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.product-card');
+      
+      elements.forEach((element, index) => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementPosition < windowHeight - 100 && !element.classList.contains('animated')) {
+          element.style.animation = `fadeInUp 0.6s ease forwards ${index * 0.1}s`;
+          element.classList.add('animated');
+        }
+      });
+    }
+    
+    // Iniciar animações
+    animateOnScroll();
+    window.addEventListener('scroll', animateOnScroll);
   </script>
 </body>
 </html>
